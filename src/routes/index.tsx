@@ -197,6 +197,190 @@ const PROJECTS: ProjectType[] = [
     videoUrl: "/varnothsava_demo.mp4"
   },
   {
+    id: "hackothsava",
+    name: "Hackothsava UI",
+    blurb: "Retro-futuristic manga/cyberpunk hybrid interface for a flagship hackathon",
+    tags: ["React 19", "TypeScript", "Vite 7", "Tailwind CSS v4", "TanStack Router", "TanStack Query", "Cloudflare Pages", "Radix UI"],
+    accent: "#a3e635",
+    featured: true,
+    badge: "Frontend UI",
+    github: "https://github.com/rockstar-2006/hackothsava-interface-prime",
+    year: "2026",
+    month: "Apr",
+    story: "Architectured a highly responsive, custom-styled frontend interface for the college's flagship hackathon, featuring a unique hybrid retro-futuristic HUD and vintage comic manga theme. Built using React 19, TypeScript, and Vite 7, with routing powered by TanStack Router and state synchronization using TanStack React Query v5.",
+    impact: [
+      "Implemented hybrid Cyberpunk HUD & Halftone Manga flat design aesthetics.",
+      "Integrated TanStack Router and TanStack Query for zero-latency client state.",
+      "Deployed high-performance static build onto Cloudflare Pages edge network."
+    ],
+    longImpact: [
+      "Designed and developed a highly responsive, custom-styled frontend interface for the college's flagship hackathon, featuring a unique hybrid retro-futuristic HUD and vintage comic manga theme.",
+      "Engineered robust, type-safe client-side routing and layout trees using TanStack Router, combined with automated caching and fetching states powered by TanStack React Query (v5).",
+      "Applied advanced Tailwind CSS v4 styling rules to create cyberpunk text-glow, ink-border outlines, halftone dot gradients, and responsive comic-shadow cards.",
+      "Built with React 19, Vite 7, and Radix UI primitives, achieving high-speed rendering scores and deploying seamlessly to Cloudflare Pages edge workers."
+    ],
+    category: "Frontend UI",
+    deviceType: "laptop",
+    videoUrl: "/hackothsava_demo.mp4",
+    architecture: ["React 19 & TypeScript", "Vite 7 Bundler", "TanStack Router & Start", "Tailwind CSS v4 & OKLCH", "Cloudflare Pages Edge"],
+    challenges: [
+      {
+        title: "Complex Hybrid Theme Styling",
+        solution: "Combined custom OKLCH color palettes, custom halftone radial backgrounds, and SVG border stroke path modifiers to render ink-borders dynamically."
+      },
+      {
+        title: "State Syncing Across Multi-Step Forms",
+        solution: "Leveraged React Hook Form with Zod schema resolution, syncing progress details into TanStack Query cache to prevent data loss on tab refreshes."
+      }
+    ]
+  },
+  {
+    id: "cropmate",
+    name: "CropMate",
+    blurb: "AI and IoT agriculture system for soil monitoring",
+    tags: ["Java", "Android SDK", "Bluetooth IoT", "Gemini AI", "JSON"],
+    accent: "var(--peach)",
+    live: "https://drive.google.com/drive/folders/1ua5_nZKDWEAQg9HztDV7Z0WU6p-qKaOw",
+    github: "https://github.com/rockstar-2006/Cropmate",
+    year: "2024",
+    month: "Feb",
+    story: "Developed an offline-capable Android application that interfaces via Bluetooth with a custom agricultural hardware rover equipped with NPK, pH, moisture, and temperature sensors for instant, on-field soil diagnostics.",
+    impact: [
+      "Bluetooth connectivity with custom agricultural sensor rover hardware.",
+      "Soil analysis models & Gemini AI for multilingual farming insights.",
+      "Resilient local JSON fallback for offline remote rural operation."
+    ],
+    longImpact: [
+      "Developed an offline-capable Android application that interfaces via Bluetooth with a custom agricultural hardware rover equipped with NPK, pH, moisture, and temperature sensors for instant, on-field soil diagnostics.",
+      "Integrated Machine Learning models and the Google Gemini AI API to dynamically analyze real-time soil data, delivering farmers multi-lingual, precision farming insights on pest control, crop depth, and customized fertilizer schedules.",
+      "Engineered a resilient, real-time data pipeline with a local JSON knowledge-base fallback, ensuring continuous hardware connectivity and uninterrupted agricultural assistance in rural areas without internet access."
+    ],
+    category: "Mobile & IoT",
+    architecture: ["BLE Soil Sensor Hardware Rover", "Native Android BLE Client", "Gemini Pro API Advisor", "Local JSON Knowledge-base Fallback"],
+    challenges: [
+      {
+        title: "Sensor BLE Pairing Failures",
+        solution: "Engineered an automated reconnect handler routine with exponential delay increments to resolve pairing conflicts."
+      },
+      {
+        title: "Missing Field Internet Signals",
+        solution: "Preloaded a basic SQLite prediction matrix on the client app to generate soil diagnostics offline when cell towers are unreachable."
+      }
+    ],
+    deviceType: "mobile",
+    videoUrl: "/cropmate.mp4"
+  },
+  {
+    id: "ambucare",
+    name: "Ambucare+",
+    blurb: "Smart ambulance booking system with real-time tracking",
+    tags: ["Java", "Android SDK", "Firebase Realtime DB", "Google Maps API", "SMS Manager API"],
+    accent: "var(--teal)",
+    github: "https://github.com/rockstar-2006/Ambucare_Driver-",
+    year: "2024",
+    month: "Aug",
+    story: "Developed an Android-based emergency response application using Java, Android SDK, Firebase Realtime Database, and Google Maps integration to enable real-time SOS alerts, live location sharing, and nearby hospital navigation.",
+    impact: [
+      "Google Maps real-time SOS alerts, driver tracking, & nearby navigation.",
+      "SMS Manager API integration for automated emergency contacts.",
+      "Camera & Gallery API integration for medical report uploads."
+    ],
+    longImpact: [
+      "Developed an Android-based emergency response application using Java, Android SDK, Firebase Realtime Database, and Google Maps integration to enable real-time SOS alerts, live location sharing, and nearby hospital navigation.",
+      "The system allows users to send emergency messages via SMS Manager, share medical reports using Camera & Gallery APIs, and interact through Text-to-Speech (TTS) and Lottie animations for improved accessibility and usability.",
+      "Designed using Fragment-based architecture, runtime permission handling, and asynchronous processing (Handlers) to ensure smooth performance, reliability, and a seamless user experience during critical situations.",
+      "Sub-500ms driver coordinate update relays via Firebase Realtime Database and custom route navigation overlay."
+    ],
+    category: "Mobile & IoT",
+    architecture: ["Android Native App", "Firebase Realtime DB & Storage", "Google Maps Directions API", "SMS Manager & Camera APIs"],
+    challenges: [
+      {
+        title: "Battery Draw of GPS Sampling",
+        solution: "Coded dynamic telemetry polling in Android SDK, which decreases coordinate refresh frequency when vehicles are stuck in traffic."
+      },
+      {
+        title: "Offline Sync Collisions",
+        solution: "Established a local queue in SQLite to hold driver telemetry records during tunnels or dropouts, auto-syncing them once online."
+      }
+    ],
+    deviceType: "mobile",
+    videoUrl: "/ambucare.mp4"
+  },
+  {
+    id: "hpl",
+    name: "HPL (Hackathon Premier League)",
+    blurb: "Sports-league style hackathon platform with points tables and match rounds",
+    tags: ["React", "TypeScript", "Node.js", "Express", "MongoDB", "WebSockets", "Tailwind CSS"],
+    accent: "#3b82f6",
+    featured: true,
+    badge: "Full-Stack Web",
+    github: "https://github.com/rockstar-2006/Hack-Veda-Internal-Hackathon-",
+    year: "2025",
+    month: "Oct",
+    story: "Developed a gamified hackathon platform that structures event scoring like a sports league, enabling teams to compete in weekly match-days over a 3-week season with live leaderboards, points tallying, and referee panel submittals.",
+    impact: [
+      "Reimagined standard 24h hackathons into a gamified 3-week season format.",
+      "Built points tally system supporting head-to-head match-days and live tables.",
+      "Engineered judge dashboards for score input and real-time student feedback."
+    ],
+    longImpact: [
+      "Reimagined standard single-day hackathons into a gamified, sports-league style experience (HPL) spanning a 3-week competitive season to eliminate participant burnout.",
+      "Developed a robust full-stack dashboard featuring real-time points calculators, dynamic team rankings, and live head-to-head match-day leaderboards.",
+      "Designed and implemented secure administrative panels for judges and referees to evaluate project milestones and submit live scoring updates.",
+      "Constructed resilient backend REST endpoints and MongoDB storage layouts to record team configurations, event brackets, and score history aggregates."
+    ],
+    category: "Web Apps",
+    deviceType: "laptop",
+    videoUrl: "/hpl_demo.mp4",
+    architecture: ["React SPA Client", "Node.js & Express API", "MongoDB Database", "Judge Dashboard Panels"],
+    challenges: [
+      {
+        title: "Dynamic Score Weight Calculations",
+        solution: "Wrote aggregate database query routines to compile match-day stats, calculating standings using weighted scores across categories."
+      },
+      {
+        title: "Real-Time Standing Updates",
+        solution: "Utilized transactional change streams to compilation database outputs, compiling Standings updates to client screens instantly."
+      }
+    ]
+  },
+  {
+    id: "guardian",
+    name: "Guardian",
+    blurb: "AI surveillance system for video anomaly detection",
+    tags: ["Python", "PyTorch", "YOLOv8", "CNN-LSTM", "FastAPI", "WebSockets"],
+    accent: "var(--peach)",
+    github: "https://github.com/rockstar-2006/Guardian-AI",
+    year: "2025",
+    month: "Mar",
+    story: "Designed and engineered an end-to-end AI-driven surveillance platform that automatically detects high-risk anomalies like fighting, robberies, or accidents in live video streams to enable rapid emergency response.",
+    impact: [
+      "Automatic anomaly detection for fights, robberies, or accidents.",
+      "FastAPI backend & React dashboard for low-latency WebSocket alerts.",
+      "Sub-100ms detection push alerts with hybrid YOLOv8 & CNN-LSTM."
+    ],
+    longImpact: [
+      "Designed and engineered an end-to-end AI-driven surveillance platform that automatically detects high-risk anomalies like fighting, robberies, or accidents in live video streams to enable rapid emergency response.",
+      "Implemented a hybrid YOLOv8 and CNN-LSTM architecture in PyTorch for temporal video analysis.",
+      "Integrated a FastAPI backend with a React dashboard for low-latency, real-time security alerts via WebSockets.",
+      "Real-time object spatial checking leveraging multi-threaded YOLOv8 pipelines with sub-100ms push alert latency."
+    ],
+    category: "AI & ML",
+    architecture: ["OpenCV Input", "YOLOv8 & CNN-LSTM (PyTorch)", "FastAPI WebSocket Server", "React Dashboard"],
+    challenges: [
+      {
+        title: "Video Stream Dropping",
+        solution: "Established ring buffers locally using Python queues to isolate frames, sustaining 30 FPS inference speeds even under temporary network lag."
+      },
+      {
+        title: "False Positives Filtering",
+        solution: "Imposed a double-pass threshold gate filter which cross-validates CNN classification confidence with sequential YOLO tracking states."
+      }
+    ],
+    deviceType: "laptop",
+    videoUrl: "/smartai_survillance.mp4"
+  },
+  {
     id: "mindshift",
     name: "MindShift",
     blurb: "AI sentiment analysis app with multilingual voice interaction",
@@ -234,41 +418,6 @@ const PROJECTS: ProjectType[] = [
     deviceType: "mobile"
   },
   {
-    id: "guardian",
-    name: "Guardian",
-    blurb: "AI surveillance system for video anomaly detection",
-    tags: ["Python", "PyTorch", "YOLOv8", "CNN-LSTM", "FastAPI", "WebSockets"],
-    accent: "var(--peach)",
-    github: "https://github.com/rockstar-2006/Guardian-AI",
-    year: "2025",
-    month: "Mar",
-    story: "Designed and engineered an end-to-end AI-driven surveillance platform that automatically detects high-risk anomalies like fighting, robberies, or accidents in live video streams to enable rapid emergency response.",
-    impact: [
-      "Automatic anomaly detection for fights, robberies, or accidents.",
-      "FastAPI backend & React dashboard for low-latency WebSocket alerts.",
-      "Sub-100ms detection push alerts with hybrid YOLOv8 & CNN-LSTM."
-    ],
-    longImpact: [
-      "Designed and engineered an end-to-end AI-driven surveillance platform that automatically detects high-risk anomalies like fighting, robberies, or accidents in live video streams to enable rapid emergency response.",
-      "Implemented a hybrid YOLOv8 and CNN-LSTM architecture in PyTorch for temporal video analysis.",
-      "Integrated a FastAPI backend with a React dashboard for low-latency, real-time security alerts via WebSockets.",
-      "Real-time object spatial checking leveraging multi-threaded YOLOv8 pipelines with sub-100ms push alert latency."
-    ],
-    category: "AI & ML",
-    architecture: ["OpenCV Input", "YOLOv8 & CNN-LSTM (PyTorch)", "FastAPI WebSocket Server", "React Dashboard"],
-    challenges: [
-      {
-        title: "Video Stream Dropping",
-        solution: "Established ring buffers locally using Python queues to isolate frames, sustaining 30 FPS inference speeds even under temporary network lag."
-      },
-      {
-        title: "False Positives Filtering",
-        solution: "Imposed a double-pass threshold gate filter which cross-validates CNN classification confidence with sequential YOLO tracking states."
-      }
-    ],
-    deviceType: "laptop"
-  },
-  {
     id: "smartquiz",
     name: "SmartQuiz AI",
     blurb: "Quiz management system with dashboards and auth",
@@ -303,76 +452,6 @@ const PROJECTS: ProjectType[] = [
       }
     ],
     deviceType: "laptop"
-  },
-  {
-    id: "ambucare",
-    name: "Ambucare+",
-    blurb: "Smart ambulance booking system with real-time tracking",
-    tags: ["Java", "Android SDK", "Firebase Realtime DB", "Google Maps API", "SMS Manager API"],
-    accent: "var(--teal)",
-    github: "https://github.com/rockstar-2006/Ambucare_Driver-",
-    year: "2024",
-    month: "Aug",
-    story: "Developed an Android-based emergency response application using Java, Android SDK, Firebase Realtime Database, and Google Maps integration to enable real-time SOS alerts, live location sharing, and nearby hospital navigation.",
-    impact: [
-      "Google Maps real-time SOS alerts, driver tracking, & nearby navigation.",
-      "SMS Manager API integration for automated emergency contacts.",
-      "Camera & Gallery API integration for medical report uploads."
-    ],
-    longImpact: [
-      "Developed an Android-based emergency response application using Java, Android SDK, Firebase Realtime Database, and Google Maps integration to enable real-time SOS alerts, live location sharing, and nearby hospital navigation.",
-      "The system allows users to send emergency messages via SMS Manager, share medical reports using Camera & Gallery APIs, and interact through Text-to-Speech (TTS) and Lottie animations for improved accessibility and usability.",
-      "Designed using Fragment-based architecture, runtime permission handling, and asynchronous processing (Handlers) to ensure smooth performance, reliability, and a seamless user experience during critical situations.",
-      "Sub-500ms driver coordinate update relays via Firebase Realtime Database and custom route navigation overlay."
-    ],
-    category: "Mobile & IoT",
-    architecture: ["Android Native App", "Firebase Realtime DB & Storage", "Google Maps Directions API", "SMS Manager & Camera APIs"],
-    challenges: [
-      {
-        title: "Battery Draw of GPS Sampling",
-        solution: "Coded dynamic telemetry polling in Android SDK, which decreases coordinate refresh frequency when vehicles are stuck in traffic."
-      },
-      {
-        title: "Offline Sync Collisions",
-        solution: "Established a local queue in SQLite to hold driver telemetry records during tunnels or dropouts, auto-syncing them once online."
-      }
-    ],
-    deviceType: "mobile"
-  },
-  {
-    id: "cropmate",
-    name: "CropMate",
-    blurb: "AI and IoT agriculture system for soil monitoring",
-    tags: ["Java", "Android SDK", "Bluetooth IoT", "Gemini AI", "JSON"],
-    accent: "var(--peach)",
-    live: "https://drive.google.com/drive/folders/1ua5_nZKDWEAQg9HztDV7Z0WU6p-qKaOw",
-    github: "https://github.com/rockstar-2006/Cropmate",
-    year: "2024",
-    month: "Feb",
-    story: "Developed an offline-capable Android application that interfaces via Bluetooth with a custom agricultural hardware rover equipped with NPK, pH, moisture, and temperature sensors for instant, on-field soil diagnostics.",
-    impact: [
-      "Bluetooth connectivity with custom agricultural sensor rover hardware.",
-      "Soil analysis models & Gemini AI for multilingual farming insights.",
-      "Resilient local JSON fallback for offline remote rural operation."
-    ],
-    longImpact: [
-      "Developed an offline-capable Android application that interfaces via Bluetooth with a custom agricultural hardware rover equipped with NPK, pH, moisture, and temperature sensors for instant, on-field soil diagnostics.",
-      "Integrated Machine Learning models and the Google Gemini AI API to dynamically analyze real-time soil data, delivering farmers multi-lingual, precision farming insights on pest control, crop depth, and customized fertilizer schedules.",
-      "Engineered a resilient, real-time data pipeline with a local JSON knowledge-base fallback, ensuring continuous hardware connectivity and uninterrupted agricultural assistance in rural areas without internet access."
-    ],
-    category: "Mobile & IoT",
-    architecture: ["BLE Soil Sensor Hardware Rover", "Native Android BLE Client", "Gemini Pro API Advisor", "Local JSON Knowledge-base Fallback"],
-    challenges: [
-      {
-        title: "Sensor BLE Pairing Failures",
-        solution: "Engineered an automated reconnect handler routine with exponential delay increments to resolve pairing conflicts."
-      },
-      {
-        title: "Missing Field Internet Signals",
-        solution: "Preloaded a basic SQLite prediction matrix on the client app to generate soil diagnostics offline when cell towers are unreachable."
-      }
-    ],
-    deviceType: "mobile"
   }
 ];
 
@@ -449,20 +528,40 @@ const LEADERSHIP = [
 
 /* ---------- Shared bits ---------- */
 
-function LaptopMockup({ videoUrl, fallbackImg }: { videoUrl?: string; fallbackImg?: string }) {
+function LaptopMockup({ videoUrl, fallbackImg, projectId }: { videoUrl?: string; fallbackImg?: string; projectId?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [showControls, setShowControls] = useState(false);
+  const [flashIcon, setFlashIcon] = useState<"play" | "pause" | null>(null);
+  const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const triggerControls = () => {
+    setShowControls(true);
+    if (controlsTimeoutRef.current) {
+      clearTimeout(controlsTimeoutRef.current);
+    }
+    controlsTimeoutRef.current = setTimeout(() => {
+      setShowControls(false);
+    }, 2500);
+  };
 
   const handlePlayPause = () => {
     if (!videoRef.current) return;
-    if (isPlaying) {
+    if (videoRef.current.paused || !isPlaying) {
+      videoRef.current.play().then(() => {
+        setIsPlaying(true);
+        setFlashIcon("play");
+        setTimeout(() => setFlashIcon(null), 700);
+      }).catch((err) => {
+        console.log("Play failed:", err);
+      });
+    } else {
       videoRef.current.pause();
       setIsPlaying(false);
-    } else {
-      videoRef.current.play();
-      setIsPlaying(true);
+      setFlashIcon("pause");
+      setTimeout(() => setFlashIcon(null), 700);
     }
   };
 
@@ -489,8 +588,62 @@ function LaptopMockup({ videoUrl, fallbackImg }: { videoUrl?: string; fallbackIm
     }
   };
 
+  const handleContainerClick = (e: React.MouseEvent) => {
+    if (e.target instanceof Element && e.target.closest('.video-controls-bar')) {
+      return;
+    }
+    handlePlayPause();
+    triggerControls();
+  };
+
+  useEffect(() => {
+    setIsPlaying(true);
+    setProgress(0);
+    if (videoUrl && videoRef.current) {
+      videoRef.current.load();
+      videoRef.current.play().catch((err) => {
+        console.log("Auto-play failed or was interrupted:", err);
+      });
+    }
+  }, [videoUrl]);
+
+  useEffect(() => {
+    return () => {
+      if (controlsTimeoutRef.current) {
+        clearTimeout(controlsTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Compute dynamic domain based on projectId
+  let domain = "bhushanpoojary.dev";
+  if (projectId === "varnothsava") domain = "varnothsava.sode-edu.in";
+  else if (projectId === "guardian") domain = "guardian-ai.security";
+  else if (projectId === "cropmate") domain = "cropmate.iot.farm";
+  else if (projectId === "ambucare") domain = "ambucare.emergency.in";
+  else if (projectId === "smartquiz") domain = "examedge.quiz.net";
+  else if (projectId === "hackothsava") domain = "hackothsava.in";
+  else if (projectId === "hpl") domain = "hpl.hackathon.live";
+
+  // Compute dynamic soft glow color based on project accent
+  let glowColor = "rgba(224, 86, 36, 0.12)"; // Terracotta default
+  if (projectId === "cropmate") glowColor = "rgba(235, 143, 115, 0.12)"; // Peach
+  else if (projectId === "ambucare" || projectId === "mindshift") glowColor = "rgba(43, 150, 141, 0.12)"; // Teal
+  else if (projectId === "guardian") glowColor = "rgba(235, 143, 115, 0.12)"; // Peach
+  else if (projectId === "varnothsava") glowColor = "rgba(224, 86, 36, 0.12)"; // Terracotta
+  else if (projectId === "hackothsava") glowColor = "rgba(163, 230, 53, 0.12)"; // Lime green
+  else if (projectId === "hpl") glowColor = "rgba(59, 130, 246, 0.12)"; // Blue
+
   return (
     <div className="relative w-full max-w-[680px] mx-auto select-none">
+      {/* Ambient Accent Glow */}
+      <div 
+        className="absolute -inset-10 rounded-full blur-[80px] pointer-events-none opacity-60 dark:opacity-40 transition-all duration-700"
+        style={{
+          background: `radial-gradient(circle, ${glowColor} 0%, transparent 70%)`
+        }}
+      />
+
       {/* Screen Frame */}
       <div className="relative border-[10px] border-[#1e1d1b] rounded-t-2xl bg-[#1e1d1b] shadow-2xl aspect-[16/10] overflow-hidden">
         {/* Webcam */}
@@ -511,7 +664,7 @@ function LaptopMockup({ videoUrl, fallbackImg }: { videoUrl?: string; fallbackIm
               </div>
               {/* Address Bar */}
               <div className="flex-1 max-w-[280px] mx-auto h-4 bg-black/30 rounded-md flex items-center justify-center px-2 border border-white/5">
-                <span className="text-[7px] text-cream/40 font-mono truncate">varnothsava.sode-edu.in</span>
+                <span className="text-[7px] text-cream/40 font-mono truncate">{domain}</span>
               </div>
             </div>
           )}
@@ -527,12 +680,39 @@ function LaptopMockup({ videoUrl, fallbackImg }: { videoUrl?: string; fallbackIm
                   muted
                   playsInline
                   onTimeUpdate={handleTimeUpdate}
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain cursor-pointer"
+                  onClick={handleContainerClick}
                 />
+
+                {/* Centered Flash Icon Overlay */}
+                <AnimatePresence>
+                  {flashIcon && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      animate={{ opacity: 1, scale: 1.2 }}
+                      exit={{ opacity: 0, scale: 1.5 }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      className="absolute inset-0 m-auto z-30 flex items-center justify-center pointer-events-none"
+                    >
+                      <div className="flex items-center justify-center w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 text-white shadow-lg">
+                        {flashIcon === "play" ? (
+                          <Play className="w-6 h-6 fill-white text-white translate-x-0.5" />
+                        ) : (
+                          <Pause className="w-6 h-6 fill-white text-white" />
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
                 
-                {/* Control bar overlay on hover */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-2 z-20">
-                  <div className="flex items-center justify-between text-white text-[10px] bg-black/60 backdrop-blur-sm p-1.5 rounded-md gap-2 pointer-events-auto">
+                {/* Control bar overlay on hover or touch */}
+                <div 
+                  className={`absolute inset-0 bg-black/35 flex flex-col justify-end p-2 z-20 transition-opacity duration-300 ${
+                    showControls ? "opacity-100" : "opacity-0 hover:opacity-100"
+                  }`}
+                  onClick={handleContainerClick}
+                >
+                  <div className="video-controls-bar flex items-center justify-between text-white text-[10px] bg-[#1a1917]/90 backdrop-blur-md p-1.5 rounded-lg gap-2 pointer-events-auto shadow-lg border border-white/5">
                     <button onClick={handlePlayPause} className="hover:text-terracotta transition-colors p-1" title="Play/Pause">
                       {isPlaying ? <Pause className="h-3.5 w-3.5 fill-white text-white" /> : <Play className="h-3.5 w-3.5 fill-white text-white" />}
                     </button>
@@ -586,20 +766,40 @@ function LaptopMockup({ videoUrl, fallbackImg }: { videoUrl?: string; fallbackIm
   );
 }
 
-function MobileMockup({ videoUrl, fallbackImg }: { videoUrl?: string; fallbackImg?: string }) {
+function MobileMockup({ videoUrl, fallbackImg, projectId }: { videoUrl?: string; fallbackImg?: string; projectId?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [showControls, setShowControls] = useState(false);
+  const [flashIcon, setFlashIcon] = useState<"play" | "pause" | null>(null);
+  const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const triggerControls = () => {
+    setShowControls(true);
+    if (controlsTimeoutRef.current) {
+      clearTimeout(controlsTimeoutRef.current);
+    }
+    controlsTimeoutRef.current = setTimeout(() => {
+      setShowControls(false);
+    }, 2500);
+  };
 
   const handlePlayPause = () => {
     if (!videoRef.current) return;
-    if (isPlaying) {
+    if (videoRef.current.paused || !isPlaying) {
+      videoRef.current.play().then(() => {
+        setIsPlaying(true);
+        setFlashIcon("play");
+        setTimeout(() => setFlashIcon(null), 700);
+      }).catch((err) => {
+        console.log("Play failed:", err);
+      });
+    } else {
       videoRef.current.pause();
       setIsPlaying(false);
-    } else {
-      videoRef.current.play();
-      setIsPlaying(true);
+      setFlashIcon("pause");
+      setTimeout(() => setFlashIcon(null), 700);
     }
   };
 
@@ -626,8 +826,51 @@ function MobileMockup({ videoUrl, fallbackImg }: { videoUrl?: string; fallbackIm
     }
   };
 
+  const handleContainerClick = (e: React.MouseEvent) => {
+    if (e.target instanceof Element && e.target.closest('.video-controls-bar')) {
+      return;
+    }
+    handlePlayPause();
+    triggerControls();
+  };
+
+  useEffect(() => {
+    setIsPlaying(true);
+    setProgress(0);
+    if (videoUrl && videoRef.current) {
+      videoRef.current.load();
+      videoRef.current.play().catch((err) => {
+        console.log("Auto-play failed or was interrupted:", err);
+      });
+    }
+  }, [videoUrl]);
+
+  useEffect(() => {
+    return () => {
+      if (controlsTimeoutRef.current) {
+        clearTimeout(controlsTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Compute dynamic soft glow color based on project accent
+  let glowColor = "rgba(43, 150, 141, 0.12)"; // Teal default
+  if (projectId === "cropmate") glowColor = "rgba(235, 143, 115, 0.12)"; // Peach
+  else if (projectId === "varnothsava") glowColor = "rgba(224, 86, 36, 0.12)"; // Terracotta
+  else if (projectId === "guardian") glowColor = "rgba(235, 143, 115, 0.12)"; // Peach
+  else if (projectId === "hackothsava") glowColor = "rgba(163, 230, 53, 0.12)"; // Lime green
+  else if (projectId === "hpl") glowColor = "rgba(59, 130, 246, 0.12)"; // Blue
+
   return (
     <div className="relative w-[210px] sm:w-[230px] mx-auto select-none">
+      {/* Ambient Accent Glow */}
+      <div 
+        className="absolute -inset-12 rounded-full blur-[60px] pointer-events-none opacity-70 dark:opacity-50 transition-all duration-700"
+        style={{
+          background: `radial-gradient(circle, ${glowColor} 0%, transparent 75%)`
+        }}
+      />
+
       {/* Phone Frame */}
       <div className="relative border-[8px] border-[#1e1d1b] rounded-[30px] bg-[#1e1d1b] shadow-2xl aspect-[9/19] overflow-hidden ring-1 ring-white/10">
         {/* Dynamic Island */}
@@ -662,12 +905,39 @@ function MobileMockup({ videoUrl, fallbackImg }: { videoUrl?: string; fallbackIm
                   muted
                   playsInline
                   onTimeUpdate={handleTimeUpdate}
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain cursor-pointer"
+                  onClick={handleContainerClick}
                 />
+
+                {/* Centered Flash Icon Overlay */}
+                <AnimatePresence>
+                  {flashIcon && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      animate={{ opacity: 1, scale: 1.2 }}
+                      exit={{ opacity: 0, scale: 1.5 }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      className="absolute inset-0 m-auto z-30 flex items-center justify-center pointer-events-none"
+                    >
+                      <div className="flex items-center justify-center w-10 h-10 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 text-white shadow-lg">
+                        {flashIcon === "play" ? (
+                          <Play className="w-5 h-5 fill-white text-white translate-x-0.5" />
+                        ) : (
+                          <Pause className="w-5 h-5 fill-white text-white" />
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
                 
-                {/* Control bar overlay on hover */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-2 z-20">
-                  <div className="flex items-center justify-between text-white text-[9px] bg-black/60 backdrop-blur-sm p-1.5 rounded-md gap-1.5 pointer-events-auto">
+                {/* Control bar overlay on hover or touch */}
+                <div 
+                  className={`absolute inset-0 bg-black/35 flex flex-col justify-end p-2 z-20 transition-opacity duration-300 ${
+                    showControls ? "opacity-100" : "opacity-0 hover:opacity-100"
+                  }`}
+                  onClick={handleContainerClick}
+                >
+                  <div className="video-controls-bar flex items-center justify-between text-white text-[9px] bg-[#1a1917]/90 backdrop-blur-md p-1.5 rounded-md gap-1.5 pointer-events-auto shadow-lg border border-white/5">
                     <button onClick={handlePlayPause} className="hover:text-terracotta transition-colors p-0.5" title="Play/Pause">
                       {isPlaying ? <Pause className="h-3 w-3 fill-white text-white" /> : <Play className="h-3 w-3 fill-white text-white" />}
                     </button>
@@ -2989,7 +3259,7 @@ function Projects() {
     setActiveTimelineIdx(0);
   };
 
-  const categories = ["All", "Featured", "AI & ML", "Web Apps", "Mobile & IoT"];
+  const categories = ["All", "Featured", "AI & ML", "Web Apps", "Frontend UI", "Mobile & IoT"];
 
   const filteredProjects = ALL_PROJECTS.filter((p) => {
     if (activeCategory === "All") return true;
@@ -3092,17 +3362,17 @@ function Projects() {
           <div className="mx-auto max-w-6xl">
             {/* Timeline rail */}
             <div className="relative mx-auto mt-8 max-w-6xl">
-              <div className="absolute left-0 right-0 top-7 hidden h-px bg-charcoal/15 md:block" />
+              <div className="absolute left-0 right-0 top-7 hidden h-px bg-charcoal/15 lg:block" />
               <motion.div
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, ease: EASE }}
-                className="absolute left-0 right-0 top-7 hidden h-[2px] origin-left bg-gradient-to-r from-terracotta via-peach to-teal md:block"
+                className="absolute left-0 right-0 top-7 hidden h-[2px] origin-left bg-gradient-to-r from-terracotta via-peach to-teal lg:block"
                 style={{ opacity: 0.35 }}
               />
 
-              <div className="grid grid-cols-2 gap-y-6 md:grid-cols-3 lg:grid-cols-6 md:gap-y-0">
+              <div className="grid grid-cols-2 gap-y-6 md:grid-cols-4 lg:grid-cols-8 lg:gap-y-0">
                 {PROJECTS.map((pr, i) => {
                   const isActive = i === activeTimelineIdx;
                   return (
@@ -3253,9 +3523,9 @@ function Projects() {
                     {/* Right Column: Device Mockup */}
                     <div className="relative md:col-span-7 flex flex-col justify-center items-center">
                       {timelineProj.deviceType === "laptop" ? (
-                        <LaptopMockup videoUrl={timelineProj.videoUrl} />
+                        <LaptopMockup videoUrl={timelineProj.videoUrl} projectId={timelineProj.id} />
                       ) : (
-                        <MobileMockup videoUrl={timelineProj.videoUrl} />
+                        <MobileMockup videoUrl={timelineProj.videoUrl} projectId={timelineProj.id} />
                       )}
 
                       {/* Slideshow Controller Bar */}
@@ -3413,9 +3683,9 @@ function Projects() {
                     {isFeatured && (
                       <div className="flex items-center justify-center py-6 bg-cream-tint/30 rounded-2xl border border-charcoal/5 dark:bg-[#1c1a17]/40">
                         {selectedCaseStudy.deviceType === "laptop" ? (
-                          <LaptopMockup videoUrl={selectedCaseStudy.videoUrl} />
+                          <LaptopMockup videoUrl={selectedCaseStudy.videoUrl} projectId={selectedCaseStudy.id} />
                         ) : (
-                          <MobileMockup videoUrl={selectedCaseStudy.videoUrl} />
+                          <MobileMockup videoUrl={selectedCaseStudy.videoUrl} projectId={selectedCaseStudy.id} />
                         )}
                       </div>
                     )}
