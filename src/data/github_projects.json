@@ -1,0 +1,534 @@
+[
+  {
+    "id": "hack-veda-internal-hackathon-",
+    "name": "Hack Veda Internal Hackathon ",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "TypeScript"
+    ],
+    "stars": 0,
+    "live": "https://hack-veda-internal-hackathon.vercel.app",
+    "github": "https://github.com/rockstar-2006/Hack-Veda-Internal-Hackathon-",
+    "updated_at": "2026-06-14T10:42:27Z",
+    "created_at": "2026-03-20T14:38:35Z",
+    "language": "TypeScript"
+  },
+  {
+    "id": "landing-page-for-android-and-ios",
+    "name": "Landing Page For Android And Ios",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "HTML"
+    ],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/Landing-Page-for-Android-and-ios",
+    "updated_at": "2026-06-10T18:28:55Z",
+    "created_at": "2025-12-23T08:21:33Z",
+    "language": "HTML"
+  },
+  {
+    "id": "backend---android-ios-faculty-web-app",
+    "name": "Backend   Android Ios Faculty Web App",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "JavaScript"
+    ],
+    "stars": 0,
+    "live": "https://backend-android-ios-faculty-web-app.vercel.app",
+    "github": "https://github.com/rockstar-2006/Backend---Android-IOS-Faculty-Web-App",
+    "updated_at": "2026-06-10T18:28:32Z",
+    "created_at": "2025-12-23T07:10:49Z",
+    "language": "JavaScript"
+  },
+  {
+    "id": "the-exam-edge",
+    "name": "The Exam Edge",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "TypeScript"
+    ],
+    "stars": 0,
+    "live": "https://faculty-quiz-management-system.vercel.app",
+    "github": "https://github.com/rockstar-2006/The-EXAM-EDGE",
+    "updated_at": "2026-06-10T18:26:44Z",
+    "created_at": "2025-12-23T08:52:28Z",
+    "language": "TypeScript"
+  },
+  {
+    "id": "hackothsava-interface-prime",
+    "name": "Hackothsava Interface Prime",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "TypeScript"
+    ],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/hackothsava-interface-prime",
+    "updated_at": "2026-06-08T13:52:48Z",
+    "created_at": "2026-05-22T14:13:29Z",
+    "language": "TypeScript"
+  },
+  {
+    "id": "hackothsava",
+    "name": "Hackothsava",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/Hackothsava",
+    "updated_at": "2026-05-23T07:35:47Z",
+    "created_at": "2026-05-23T07:35:46Z",
+    "language": "Other"
+  },
+  {
+    "id": "cie-portal",
+    "name": "Cie Portal",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "JavaScript"
+    ],
+    "stars": 0,
+    "live": "https://cie-portal.vercel.app",
+    "github": "https://github.com/rockstar-2006/CIE-PORTAL",
+    "updated_at": "2026-05-15T04:04:25Z",
+    "created_at": "2026-04-18T11:56:30Z",
+    "language": "JavaScript"
+  },
+  {
+    "id": "frontend-quiz",
+    "name": "Frontend Quiz",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "TypeScript"
+    ],
+    "stars": 0,
+    "live": "https://frontend-quiz-gold.vercel.app",
+    "github": "https://github.com/rockstar-2006/Frontend-quiz",
+    "updated_at": "2026-05-09T07:48:41Z",
+    "created_at": "2025-12-02T15:23:49Z",
+    "language": "TypeScript"
+  },
+  {
+    "id": "backend-quiz",
+    "name": "Backend Quiz",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "JavaScript"
+    ],
+    "stars": 0,
+    "live": "https://backend-quiz-delta.vercel.app",
+    "github": "https://github.com/rockstar-2006/Backend-quiz",
+    "updated_at": "2026-05-09T06:43:10Z",
+    "created_at": "2025-12-02T15:23:24Z",
+    "language": "JavaScript"
+  },
+  {
+    "id": "smvitm-website-scraper",
+    "name": "Smvitm Website Scraper",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "Python"
+    ],
+    "stars": 1,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/Smvitm-Website-Scraper",
+    "updated_at": "2026-05-07T02:11:18Z",
+    "created_at": "2026-03-29T14:23:45Z",
+    "language": "Python"
+  },
+  {
+    "id": "ignite-election",
+    "name": "Ignite Election",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "TypeScript"
+    ],
+    "stars": 0,
+    "live": "https://ignite-election.vercel.app",
+    "github": "https://github.com/rockstar-2006/Ignite-Election",
+    "updated_at": "2026-04-09T11:53:26Z",
+    "created_at": "2026-04-09T02:14:17Z",
+    "language": "TypeScript"
+  },
+  {
+    "id": "guardian-ai",
+    "name": "Guardian Ai",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "Python"
+    ],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/Guardian-AI",
+    "updated_at": "2026-03-19T06:52:55Z",
+    "created_at": "2025-08-22T10:59:14Z",
+    "language": "Python"
+  },
+  {
+    "id": "varnothsava---college-fest-website-",
+    "name": "Varnothsava   College Fest Website ",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "TypeScript"
+    ],
+    "stars": 3,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/Varnothsava---College-Fest-Website-",
+    "updated_at": "2026-03-19T02:34:19Z",
+    "created_at": "2025-12-30T03:27:28Z",
+    "language": "TypeScript"
+  },
+  {
+    "id": "phase--1-",
+    "name": "Phase  1 ",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/Phase--1-",
+    "updated_at": "2026-02-22T15:28:38Z",
+    "created_at": "2026-02-22T15:28:38Z",
+    "language": "Other"
+  },
+  {
+    "id": "cropmate",
+    "name": "Cropmate",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "Java"
+    ],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/Cropmate",
+    "updated_at": "2026-02-18T01:30:21Z",
+    "created_at": "2025-04-20T08:39:43Z",
+    "language": "Java"
+  },
+  {
+    "id": "rockstar-2006",
+    "name": "Rockstar 2006",
+    "blurb": "Hello Wo",
+    "tags": [],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/rockstar-2006",
+    "updated_at": "2026-01-14T18:48:17Z",
+    "created_at": "2026-01-14T17:21:39Z",
+    "language": "Other"
+  },
+  {
+    "id": "night-tab-browaing-",
+    "name": "Night Tab Browaing ",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "TypeScript"
+    ],
+    "stars": 0,
+    "live": "https://bolt-tab-revival.vercel.app",
+    "github": "https://github.com/rockstar-2006/Night-Tab-Browaing-",
+    "updated_at": "2026-01-14T16:07:54Z",
+    "created_at": "2025-10-11T11:23:55Z",
+    "language": "TypeScript"
+  },
+  {
+    "id": "smart-farmer-ai",
+    "name": "Smart Farmer Ai",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "TypeScript"
+    ],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/smart-farmer-ai",
+    "updated_at": "2025-12-04T04:06:27Z",
+    "created_at": "2025-10-27T17:09:09Z",
+    "language": "TypeScript"
+  },
+  {
+    "id": "mindshiftai",
+    "name": "Mindshiftai",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "Java"
+    ],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/MindShiftAI",
+    "updated_at": "2025-12-02T02:17:16Z",
+    "created_at": "2025-09-07T09:11:12Z",
+    "language": "Java"
+  },
+  {
+    "id": "backend",
+    "name": "Backend",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "TypeScript"
+    ],
+    "stars": 0,
+    "live": "https://backend-gilt-nine-87.vercel.app",
+    "github": "https://github.com/rockstar-2006/Backend",
+    "updated_at": "2025-11-21T02:01:46Z",
+    "created_at": "2025-11-21T01:51:25Z",
+    "language": "TypeScript"
+  },
+  {
+    "id": "frontend-smartai",
+    "name": "Frontend Smartai",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "JavaScript"
+    ],
+    "stars": 0,
+    "live": "https://frontend-smartai.vercel.app",
+    "github": "https://github.com/rockstar-2006/frontend-smartai",
+    "updated_at": "2025-11-19T05:01:07Z",
+    "created_at": "2025-11-18T13:42:55Z",
+    "language": "JavaScript"
+  },
+  {
+    "id": "backend-smartai",
+    "name": "Backend Smartai",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "JavaScript"
+    ],
+    "stars": 0,
+    "live": "https://backend-smartai.vercel.app",
+    "github": "https://github.com/rockstar-2006/Backend-Smartai",
+    "updated_at": "2025-11-19T05:00:54Z",
+    "created_at": "2025-11-18T13:22:20Z",
+    "language": "JavaScript"
+  },
+  {
+    "id": "smartai",
+    "name": "Smartai",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "JavaScript"
+    ],
+    "stars": 0,
+    "live": "https://smartai-ten.vercel.app",
+    "github": "https://github.com/rockstar-2006/smartai",
+    "updated_at": "2025-11-11T17:20:41Z",
+    "created_at": "2025-10-14T07:58:32Z",
+    "language": "JavaScript"
+  },
+  {
+    "id": "quiz-smvitm",
+    "name": "Quiz Smvitm",
+    "blurb": "SMVITM 1 Credit QUIZ app ",
+    "tags": [
+      "TypeScript"
+    ],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/Quiz-SMVITM",
+    "updated_at": "2025-10-26T02:24:26Z",
+    "created_at": "2025-10-26T02:18:42Z",
+    "language": "TypeScript"
+  },
+  {
+    "id": "gg",
+    "name": "Gg",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "TypeScript"
+    ],
+    "stars": 0,
+    "live": "https://gg-inky-delta.vercel.app",
+    "github": "https://github.com/rockstar-2006/gg",
+    "updated_at": "2025-10-11T10:49:12Z",
+    "created_at": "2025-10-11T10:45:33Z",
+    "language": "TypeScript"
+  },
+  {
+    "id": "astratech",
+    "name": "Astratech",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "TypeScript"
+    ],
+    "stars": 0,
+    "live": "https://astra-tech-ecru.vercel.app",
+    "github": "https://github.com/rockstar-2006/AstraTech",
+    "updated_at": "2025-09-29T13:36:04Z",
+    "created_at": "2025-09-29T13:29:46Z",
+    "language": "TypeScript"
+  },
+  {
+    "id": "ieeewebsite",
+    "name": "Ieeewebsite",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "TypeScript"
+    ],
+    "stars": 0,
+    "live": "https://ieeewebsite.vercel.app",
+    "github": "https://github.com/rockstar-2006/IEEEWEBSITE",
+    "updated_at": "2025-09-29T13:25:35Z",
+    "created_at": "2025-09-29T11:16:29Z",
+    "language": "TypeScript"
+  },
+  {
+    "id": "ambucare_driver-",
+    "name": "Ambucare Driver ",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "Java"
+    ],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/Ambucare_Driver-",
+    "updated_at": "2025-08-31T15:42:10Z",
+    "created_at": "2024-12-05T14:18:27Z",
+    "language": "Java"
+  },
+  {
+    "id": "tejas",
+    "name": "Tejas",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "JavaScript"
+    ],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/Tejas",
+    "updated_at": "2025-08-21T19:32:06Z",
+    "created_at": "2025-08-21T19:24:09Z",
+    "language": "JavaScript"
+  },
+  {
+    "id": "memeory",
+    "name": "Memeory",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "JavaScript"
+    ],
+    "stars": 0,
+    "live": "https://memeory.vercel.app",
+    "github": "https://github.com/rockstar-2006/memeory",
+    "updated_at": "2025-05-29T21:28:12Z",
+    "created_at": "2025-05-29T21:15:44Z",
+    "language": "JavaScript"
+  },
+  {
+    "id": "plant-detection-training-model-",
+    "name": "Plant Detection Training Model ",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/Plant-Detection-training-model-",
+    "updated_at": "2025-05-10T05:09:55Z",
+    "created_at": "2025-05-10T05:09:55Z",
+    "language": "Other"
+  },
+  {
+    "id": "disease",
+    "name": "Disease",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "Java"
+    ],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/Disease",
+    "updated_at": "2025-05-07T11:01:02Z",
+    "created_at": "2025-05-07T10:49:50Z",
+    "language": "Java"
+  },
+  {
+    "id": "agritech",
+    "name": "Agritech",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "Java"
+    ],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/Agritech",
+    "updated_at": "2025-05-03T15:28:47Z",
+    "created_at": "2025-04-20T08:29:01Z",
+    "language": "Java"
+  },
+  {
+    "id": "my-first-repo",
+    "name": "My First Repo",
+    "blurb": "This is my first GitHub hub repository ",
+    "tags": [],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/My-First-repo",
+    "updated_at": "2025-04-09T02:19:14Z",
+    "created_at": "2025-04-09T02:19:10Z",
+    "language": "Other"
+  },
+  {
+    "id": "flappy-bird",
+    "name": "Flappy Bird",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "JavaScript"
+    ],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/Flappy-Bird",
+    "updated_at": "2025-03-12T02:49:46Z",
+    "created_at": "2025-03-12T02:45:14Z",
+    "language": "JavaScript"
+  },
+  {
+    "id": "anveshana",
+    "name": "Anveshana",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/Anveshana",
+    "updated_at": "2025-01-24T16:29:18Z",
+    "created_at": "2025-01-24T16:29:18Z",
+    "language": "Other"
+  },
+  {
+    "id": "rider",
+    "name": "Rider",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/rider",
+    "updated_at": "2024-12-05T14:15:45Z",
+    "created_at": "2024-09-13T06:35:28Z",
+    "language": "Other"
+  },
+  {
+    "id": "4i-s",
+    "name": "4I S",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "Java"
+    ],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/4i-s",
+    "updated_at": "2024-10-21T00:54:49Z",
+    "created_at": "2024-10-21T00:52:10Z",
+    "language": "Java"
+  },
+  {
+    "id": "sharefood.c",
+    "name": "Sharefood.C",
+    "blurb": "GitHub repository showcasing software development.",
+    "tags": [
+      "Java"
+    ],
+    "stars": 0,
+    "live": null,
+    "github": "https://github.com/rockstar-2006/sharefood.c",
+    "updated_at": "2024-03-30T11:35:11Z",
+    "created_at": "2024-03-30T11:24:54Z",
+    "language": "Java"
+  }
+]

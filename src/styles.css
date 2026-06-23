@@ -1,0 +1,252 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-cream: var(--cream);
+  --color-cream-tint: var(--cream-tint);
+  --color-charcoal: var(--charcoal);
+  --color-terracotta: var(--terracotta);
+  --color-teal: var(--teal);
+  --color-peach: var(--peach);
+
+  --font-display: "Playfair Display", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --shadow-warm: 0 8px 30px rgba(194, 101, 74, 0.08);
+  --shadow-warm-lg: 0 20px 50px rgba(194, 101, 74, 0.15);
+}
+
+:root {
+  --radius: 0.875rem;
+
+  --cream: #fdf8f3;
+  --cream-tint: #fff5eb;
+  --charcoal: #2d2a24;
+  --terracotta: #c2654a;
+  --teal: #3a7c7c;
+  --peach: #e8a87c;
+
+  --background: #fdf8f3;
+  --foreground: #2d2a24;
+  --card: #ffffff;
+  --card-foreground: #2d2a24;
+  --popover: #ffffff;
+  --popover-foreground: #2d2a24;
+  --primary: #c2654a;
+  --primary-foreground: #fdf8f3;
+  --secondary: #fff5eb;
+  --secondary-foreground: #2d2a24;
+  --muted: #fff5eb;
+  --muted-foreground: #6b6258;
+  --accent: #3a7c7c;
+  --accent-foreground: #fdf8f3;
+  --destructive: #c2654a;
+  --destructive-foreground: #fdf8f3;
+  --border: #ece3d6;
+  --input: #ece3d6;
+  --ring: #c2654a;
+}
+
+.dark {
+  --cream: #12110e;
+  --cream-tint: #1a1815;
+  --charcoal: #fdf8f3;
+  --terracotta: #d97d64;
+  --teal: #4da6a6;
+  --peach: #f2bd99;
+
+  --background: #12110e;
+  --foreground: #fdf8f3;
+  --card: #1c1a17;
+  --card-foreground: #fdf8f3;
+  --popover: #1c1a17;
+  --popover-foreground: #fdf8f3;
+  --primary: #d97d64;
+  --primary-foreground: #12110e;
+  --secondary: #1a1815;
+  --secondary-foreground: #fdf8f3;
+  --muted: #1a1815;
+  --muted-foreground: #a3978c;
+  --accent: #4da6a6;
+  --accent-foreground: #12110e;
+  --destructive: #d97d64;
+  --destructive-foreground: #12110e;
+  --border: #2d2a25;
+  --input: #2d2a25;
+  --ring: #d97d64;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@utility text-gradient-warm {
+  background: linear-gradient(135deg, #c2654a 0%, #3a7c7c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-gradient-warm {
+  background: linear-gradient(135deg, #c2654a 0%, #3a7c7c 100%);
+}
+
+@utility shadow-warm {
+  box-shadow: 0 8px 30px rgba(194, 101, 74, 0.08);
+}
+
+@utility shadow-warm-lg {
+  box-shadow: 0 20px 50px rgba(194, 101, 74, 0.18);
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+@keyframes blob-drift {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  33% { transform: translate(20px,-30px) scale(1.05); }
+  66% { transform: translate(-15px,15px) scale(0.97); }
+}
+
+@utility animate-float-slow {
+  animation: float-slow 7s ease-in-out infinite;
+}
+@utility animate-pulse-dot {
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+@utility animate-blob {
+  animation: blob-drift 14s ease-in-out infinite;
+}
+
+/* Blueprint Grid Background Pattern */
+@utility blueprint-grid {
+  background-size: 50px 50px;
+  background-image: 
+    linear-gradient(to right, rgba(45, 42, 36, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(45, 42, 36, 0.025) 1px, transparent 1px);
+}
+
+/* Dotted Tech Grid Background */
+@utility tech-dot-grid {
+  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(45, 42, 36, 0.05) 1px, transparent 1px);
+}
+
+/* Cybernetic/Geometric Card Clip Path */
+@utility clip-tech-card {
+  clip-path: polygon(
+    0px 16px, 
+    16px 0px, 
+    100% 0px, 
+    100% calc(100% - 16px), 
+    calc(100% - 16px) 100%, 
+    0px 100%
+  );
+}
+
+@utility clip-tech-card-sm {
+  clip-path: polygon(
+    0px 10px, 
+    10px 0px, 
+    100% 0px, 
+    100% calc(100% - 10px), 
+    calc(100% - 10px) 100%, 
+    0px 100%
+  );
+}
+
+/* Custom Rotational Animations for Orbital Rings */
+@keyframes rotate-cw {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes rotate-ccw {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+@keyframes dash-scroll {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+@utility animate-rotate-cw {
+  animation: rotate-cw 25s linear infinite;
+}
+
+@utility animate-rotate-ccw {
+  animation: rotate-ccw 20s linear infinite;
+}
+
+@utility animate-dash-scroll {
+  animation: dash-scroll 4s linear infinite;
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+@utility animate-marquee-scroll {
+  animation: marquee-scroll 24s linear infinite;
+}
+
