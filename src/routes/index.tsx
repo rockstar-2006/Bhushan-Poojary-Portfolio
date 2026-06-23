@@ -1979,10 +1979,21 @@ function AILab() {
   const [query, setQuery] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [typingSteps, setTypingSteps] = useState<string[]>([]);
-  const chatEndRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isMountedRef = useRef(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (!isMountedRef.current) {
+      isMountedRef.current = true;
+      return;
+    }
+    if (containerRef.current) {
+      containerRef.current.scrollTo({
+        top: containerRef.current.scrollHeight,
+        behavior: "smooth"
+      });
+    }
   }, [messages, isTyping, typingSteps]);
 
   const handleSend = (textToSend: string) => {
@@ -2094,7 +2105,10 @@ function AILab() {
             </div>
 
             {/* Messages list */}
-            <div className="relative z-10 flex-1 overflow-y-auto py-6 space-y-6 pr-1 scrollbar-thin scrollbar-thumb-charcoal/10 dark:scrollbar-thumb-white/10">
+            <div 
+              ref={containerRef}
+              className="relative z-10 flex-1 overflow-y-auto py-6 space-y-6 pr-1 scrollbar-thin scrollbar-thumb-charcoal/10 dark:scrollbar-thumb-white/10"
+            >
               {messages.map((msg) => (
                 <div key={msg.id} className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
                   <div className={`max-w-[90%] sm:max-w-[80%] rounded-2xl p-4 text-xs leading-relaxed ${
@@ -2148,7 +2162,6 @@ function AILab() {
                   </div>
                 </div>
               )}
-              <div ref={chatEndRef} />
             </div>
 
             {/* Quick chips & Input form */}
@@ -2183,7 +2196,7 @@ function AILab() {
                   disabled={isTyping}
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Ask about my skills, projects, experience, or SoilSense..."
+                  placeholder={isMobile ? "Ask anything..." : "Ask about my skills, experience, or SoilSense..."}
                   className="flex-1 bg-transparent font-sans text-xs text-charcoal dark:text-cream placeholder-charcoal/40 dark:placeholder-white/30 outline-none disabled:opacity-50"
                 />
                 <button
@@ -2196,12 +2209,11 @@ function AILab() {
                 </button>
               </form>
             </div>
-          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
   );
-
 }
 function Skills() {
   const [hovered, setHovered] = useState<HexSkill | null>(null);
