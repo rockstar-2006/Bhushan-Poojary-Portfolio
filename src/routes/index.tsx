@@ -1386,7 +1386,7 @@ function Nav({ theme, toggleTheme }: { theme: "light" | "dark"; toggleTheme: () 
             onClick={openCalendly}
             className="rounded-full bg-terracotta px-4 py-2 text-xs font-medium text-cream transition-transform hover:-translate-y-0.5 cursor-pointer"
           >
-            Book Chat
+            Schedule Call
           </button>
           <a
             href="#contact"
@@ -2041,6 +2041,7 @@ function Skills() {
 /* ---------- Experience ---------- */
 
 function Experience() {
+  const isMobile = useIsMobile();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.85", "end 0.6"] });
   const pathLen = useTransform(scrollYProgress, [0, 1], [0, 1]);
@@ -2074,7 +2075,7 @@ function Experience() {
                 <div className={`md:flex ${i % 2 === 0 ? "md:justify-start" : "md:justify-end"}`}>
                   <div
                     className="relative w-full max-w-xl rounded-2xl bg-white p-6 shadow-warm md:p-8 dark:bg-card"
-                    style={{ transform: `rotate(${i % 2 === 0 ? "-1.2deg" : "1.5deg"})` }}
+                    style={isMobile ? {} : { transform: `rotate(${i % 2 === 0 ? "-1.2deg" : "1.5deg"})` }}
                   >
                     <div className="mb-4 flex items-start gap-4">
                       <div
@@ -3136,8 +3137,18 @@ function Achievements() {
           {ACHIEVEMENTS.map((a, i) => (
             <motion.div
               key={a.title}
-              initial={isMobile ? { opacity: 0, y: 12 } : { opacity: 0, scale: 0.6, rotate: -8, y: 30 }}
-              whileInView={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, scale: 1, rotate: 0, y: 0 }}
+              initial={{
+                opacity: 0,
+                scale: isMobile ? 1 : 0.6,
+                rotate: isMobile ? 0 : -8,
+                y: isMobile ? 12 : 30
+              }}
+              whileInView={{
+                opacity: 1,
+                scale: 1,
+                rotate: 0,
+                y: 0
+              }}
               viewport={{ once: true, margin: "-60px" }}
               transition={isMobile ? { duration: 0.4, delay: (i % 4) * 0.03 } : { type: "spring", stiffness: 160, damping: 14, delay: (i % 4) * 0.03 }}
               className="relative p-[1.5px] clip-tech-card-sm bg-charcoal/10 hover:bg-terracotta transition-all duration-300 shadow-warm"
@@ -3227,7 +3238,7 @@ function Contact() {
                 onClick={openCalendly}
                 className="inline-flex items-center gap-2.5 rounded-full bg-teal px-6 py-3 text-sm font-medium text-cream shadow-warm transition-transform hover:-translate-y-0.5 cursor-pointer"
               >
-                Schedule a 1-on-1 Chat
+                Schedule Call
               </button>
             </div>
 
