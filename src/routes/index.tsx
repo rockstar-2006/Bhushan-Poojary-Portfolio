@@ -42,6 +42,47 @@ import {
 } from "../components/ui/dialog";
 import GITHUB_PROJECTS from "../data/github_projects.json";
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const check = () => {
+      setIsMobile(
+        window.innerWidth < 768 ||
+        window.matchMedia("(hover: none)").matches ||
+        ("ontouchstart" in window) ||
+        navigator.maxTouchPoints > 0
+      );
+    };
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  return isMobile;
+}
+
+function openCalendly() {
+  if (typeof window === "undefined") return;
+  const url = "https://calendly.com/bhushan-poojary2006/30min";
+  
+  if (!(window as any).Calendly) {
+    const link = document.createElement("link");
+    link.href = "https://assets.calendly.com/assets/external/widget.css";
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+
+    const script = document.createElement("script");
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    script.onload = () => {
+      (window as any).Calendly.initPopupWidget({ url });
+    };
+    document.body.appendChild(script);
+  } else {
+    (window as any).Calendly.initPopupWidget({ url });
+  }
+}
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -688,7 +729,7 @@ function SectionHeading({ eyebrow, title, story }: { eyebrow: string; title: str
       <motion.p
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, margin: "-40px" }}
+        viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.5, ease: EASE }}
         className="mb-3 text-xs font-medium uppercase tracking-[0.32em] text-terracotta"
       >
@@ -697,7 +738,7 @@ function SectionHeading({ eyebrow, title, story }: { eyebrow: string; title: str
       <motion.h2
         initial={{ opacity: 0, y: 14 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, margin: "-40px" }}
+        viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.6, delay: 0.08, ease: EASE }}
         className="font-display text-4xl font-bold text-charcoal md:text-5xl"
       >
@@ -706,7 +747,7 @@ function SectionHeading({ eyebrow, title, story }: { eyebrow: string; title: str
       <motion.div
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
-        viewport={{ once: false, margin: "-40px" }}
+        viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.6, delay: 0.18, ease: EASE }}
         className="mx-auto mt-4 h-[2px] w-14 origin-left rounded-full bg-teal"
       />
@@ -716,32 +757,30 @@ function SectionHeading({ eyebrow, title, story }: { eyebrow: string; title: str
 }
 
 function MicroStory({ text }: { text: string }) {
-  const words = text.split(" ");
   return (
-    <p className="mx-auto mt-6 max-w-xl font-display text-base italic leading-relaxed text-charcoal/65 md:text-lg">
-      {words.map((w, i) => (
-        <motion.span
-          key={i}
-          initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: false, margin: "-40px" }}
-          transition={{ duration: 0.4, delay: Math.min(0.2, i * 0.01), ease: EASE }}
-          className="mr-[0.25em] inline-block"
-        >
-          {w}
-        </motion.span>
-      ))}
-    </p>
+    <motion.p
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, ease: EASE }}
+      className="mx-auto mt-6 max-w-xl font-display text-base italic leading-relaxed text-charcoal/65 md:text-lg"
+    >
+      {text}
+    </motion.p>
   );
 }
 
 function Reveal({ children, delay = 0, x = 0, y = 30 }: { children: ReactNode; delay?: number; x?: number; y?: number }) {
+  const isMobile = useIsMobile();
+  const targetX = isMobile ? 0 : x;
+  const targetY = isMobile ? 12 : y;
+
   return (
     <motion.div
-      initial={{ opacity: 0, x, y }}
+      initial={{ opacity: 0, x: targetX, y: targetY }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: false, margin: "-60px" }}
-      transition={{ duration: 0.45, delay: delay * 0.5, ease: EASE }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.45, delay: isMobile ? 0 : delay * 0.5, ease: EASE }}
     >
       {children}
     </motion.div>
@@ -763,6 +802,8 @@ function ScrollProgress() {
 }
 
 function Grain() {
+  const isMobile = useIsMobile();
+  if (isMobile) return null;
   const svg =
     "data:image/svg+xml;utf8," +
     encodeURIComponent(
@@ -778,6 +819,7 @@ function Grain() {
 }
 
 function OrganicCursor() {
+  const isMobile = useIsMobile();
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
   const rx = useSpring(x, { stiffness: 350, damping: 28, mass: 0.5 });
@@ -789,6 +831,7 @@ function OrganicCursor() {
   const [label, setLabel] = useState<string>("");
 
   useEffect(() => {
+    if (isMobile) return;
     const move = (e: MouseEvent) => {
       x.set(e.clientX);
       y.set(e.clientY);
@@ -804,7 +847,7 @@ function OrganicCursor() {
     };
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
-  }, [x, y]);
+  }, [x, y, isMobile]);
 
   const palette = {
     hero:    { ring: "#C2654A", dot: "#2D2A24", glow: "rgba(194,101,74,0.25)", shape: "circle", verb: "explore" },
@@ -813,6 +856,8 @@ function OrganicCursor() {
     contact: { ring: "#3A7C7C", dot: "#C2654A", glow: "rgba(58,124,124,0.25)", shape: "nib",    verb: "write"   },
     default: { ring: "#C2654A", dot: "#2D2A24", glow: "rgba(194,101,74,0.18)", shape: "circle", verb: ""         },
   }[section];
+
+  if (isMobile) return null;
 
   const ringScale = mode === "link" ? 1.9 : mode === "tag" ? 1.4 : 1;
   const showVerb = mode === "link" && !!palette.verb;
@@ -864,24 +909,34 @@ function OrganicCursor() {
 }
 
 function Spotlight() {
+  const isMobile = useIsMobile();
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    if (isMobile) return;
     const onMove = (e: MouseEvent) => {
       if (!ref.current) return;
       ref.current.style.background = `radial-gradient(620px circle at ${e.clientX}px ${e.clientY}px, rgba(232,168,124,0.18), transparent 55%)`;
     };
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) return null;
   return <div ref={ref} aria-hidden className="pointer-events-none fixed inset-0 z-[1]" />;
 }
 
 function Magnetic({ children, strength = 0.35 }: { children: ReactNode; strength?: number }) {
+  const isMobile = useIsMobile();
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 260, damping: 18, mass: 0.4 });
   const sy = useSpring(y, { stiffness: 260, damping: 18, mass: 0.4 });
+
+  if (isMobile) {
+    return <div style={{ display: "inline-block" }}>{children}</div>;
+  }
+
   return (
     <motion.div
       ref={ref}
@@ -1030,35 +1085,62 @@ function ScrollToTop() {
   );
 }
 
-function FloatingMusicPlayer() {
-  const [isPlaying, setIsPlaying] = useState(true);
+function FloatingMusicPlayer({ loadingComplete }: { loadingComplete: boolean }) {
+  const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted,   setIsMuted]   = useState(false);
   const [volume,    setVolume]    = useState(0.35);
   const [expanded,  setExpanded]  = useState(false);
   const audioRef   = useRef<HTMLAudioElement | null>(null);
   const unmuteDone = useRef(false); // guard so the unmute only runs once
 
-  // Unmute once after mount — does NOT run again, never fights with buttons
+  // Unmute and play once the loading screen completes
   useEffect(() => {
+    if (!loadingComplete) return;
     const audio = audioRef.current;
     if (!audio || unmuteDone.current) return;
 
-    const t = setTimeout(() => {
-      if (unmuteDone.current) return;
-      unmuteDone.current = true;
-      audio.muted  = false;
-      audio.volume = 0;
-      let v = 0;
-      const ramp = setInterval(() => {
-        v = Math.min(v + 0.02, 0.35);
-        audio.volume = v;
-        setVolume(parseFloat(v.toFixed(2)));
-        if (v >= 0.35) clearInterval(ramp);
-      }, 25);
-    }, 350);
+    unmuteDone.current = true;
+    
+    // Function to try to play and unmute
+    const startAudio = () => {
+      audio.muted = false;
+      audio.play().then(() => {
+        setIsPlaying(true);
+        // Ramp up volume
+        let v = 0;
+        audio.volume = 0;
+        const ramp = setInterval(() => {
+          v = Math.min(v + 0.02, 0.35);
+          audio.volume = v;
+          setVolume(parseFloat(v.toFixed(2)));
+          if (v >= 0.35) clearInterval(ramp);
+        }, 25);
+        cleanup();
+      }).catch((err) => {
+        console.log("Autoplay blocked, waiting for user gesture:", err);
+      });
+    };
 
-    return () => clearTimeout(t);
-  }, []);
+    const handleGesture = () => {
+      startAudio();
+    };
+
+    const cleanup = () => {
+      window.removeEventListener("click", handleGesture);
+      window.removeEventListener("touchstart", handleGesture);
+      window.removeEventListener("keydown", handleGesture);
+    };
+
+    // Try immediately
+    startAudio();
+
+    // Setup fallback listeners for first interaction
+    window.addEventListener("click", handleGesture);
+    window.addEventListener("touchstart", handleGesture);
+    window.addEventListener("keydown", handleGesture);
+
+    return () => cleanup();
+  }, [loadingComplete]);
 
   // ── Play / Pause ── directly controls the audio element
   const handlePlayPause = (e: React.MouseEvent) => {
@@ -1300,6 +1382,12 @@ function Nav({ theme, toggleTheme }: { theme: "light" | "dark"; toggleTheme: () 
           >
             Resume.pdf
           </a>
+          <button
+            onClick={openCalendly}
+            className="rounded-full bg-terracotta px-4 py-2 text-xs font-medium text-cream transition-transform hover:-translate-y-0.5 cursor-pointer"
+          >
+            Book Chat
+          </button>
           <a
             href="#contact"
             className="rounded-full bg-charcoal px-4 py-2 text-xs font-medium text-cream transition-transform hover:-translate-y-0.5"
@@ -1313,6 +1401,7 @@ function Nav({ theme, toggleTheme }: { theme: "light" | "dark"; toggleTheme: () 
 }
 
 function Hero() {
+  const isMobile = useIsMobile();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const yIllu = useTransform(scrollYProgress, [0, 1], [0, 120]);
@@ -1336,6 +1425,7 @@ function Hero() {
       data-section="hero"
       ref={ref}
       onMouseMove={(e) => {
+        if (isMobile) return;
         const r = ref.current!.getBoundingClientRect();
         px.set((e.clientX - r.left - r.width / 2) / r.width);
         py.set((e.clientY - r.top - r.height / 2) / r.height);
@@ -1382,12 +1472,12 @@ function Hero() {
           {/* Word-by-word name reveal with mask */}
           <h1 className="font-display text-5xl font-bold leading-[1.02] text-charcoal md:text-7xl">
             {nameWords.map((w, i) => (
-              <span key={w} className={`mr-3 inline-block overflow-hidden align-bottom ${i === 1 ? "pr-6" : ""}`}>
+              <span key={w} className={`mr-3 inline-block overflow-hidden align-bottom pb-4 -mb-4 ${i === 1 ? "pr-6" : ""}`}>
                 <motion.span
                   initial={{ y: "110%" }}
                   animate={{ y: 0 }}
                   transition={{ duration: 0.9, delay: 0.2 + i * 0.12, ease: EASE }}
-                  className={`inline-block ${i === 1 ? "text-gradient-warm italic pr-4" : ""}`}
+                  className={`inline-block pb-4 ${i === 1 ? "text-gradient-warm italic pr-4" : ""}`}
                 >
                   {w}
                 </motion.span>
@@ -1436,11 +1526,19 @@ function Hero() {
               </a>
             </Magnetic>
             <Magnetic>
+              <button
+                onClick={openCalendly}
+                className="inline-flex items-center gap-2 rounded-full bg-teal px-6 py-3 text-sm font-medium text-cream hover:bg-teal/90 shadow-warm transition-colors cursor-pointer"
+              >
+                Schedule a Meeting
+              </button>
+            </Magnetic>
+            <Magnetic>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 rounded-full border-2 border-teal px-6 py-3 text-sm font-medium text-teal transition-colors hover:bg-teal hover:text-cream cursor-pointer"
+                className="inline-flex items-center gap-2 rounded-full border border-charcoal/20 px-6 py-3 text-sm font-medium text-charcoal/70 transition-colors hover:border-terracotta hover:text-terracotta cursor-pointer dark:text-cream/70 dark:border-white/20"
               >
-                Get in Touch
+                Send Message
               </a>
             </Magnetic>
           </motion.div>
@@ -1525,13 +1623,13 @@ function Hero() {
           >
             {/* Outer rotating dashed ring */}
             <motion.div 
-              style={{ x: tx1, y: ty1 }}
+              style={isMobile ? {} : { x: tx1, y: ty1 }}
               className="animate-rotate-cw absolute inset-0 rounded-full border border-dashed border-terracotta/40" 
             />
             
             {/* Middle rotating tech ring */}
             <motion.div 
-              style={{ x: tx2, y: ty2 }}
+              style={isMobile ? {} : { x: tx2, y: ty2 }}
               className="animate-rotate-ccw absolute inset-3 rounded-full border border-charcoal/10"
             >
               <span className="absolute -top-1 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-teal shadow-warm" />
@@ -1675,18 +1773,19 @@ function HexCell({
   const meta = CATEGORY_META[skill.category];
   const isExpert = skill.level >= 90;
   const clipHex = "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)";
+  const isMobile = useIsMobile();
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.25 }}
-      whileInView={{ opacity: dimmed ? 0.2 : 1, scale: 1 }}
-      viewport={{ once: false, margin: "-40px" }}
-      transition={{ type: "spring", stiffness: 140, damping: 12, delay: (index % 6) * 0.02 }}
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: dimmed ? 0.2 : 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.4, ease: "easeOut", delay: isMobile ? 0 : (index % 6) * 0.015 }}
       className={`flex h-full min-w-0 flex-col items-center justify-start gap-3 transition-opacity duration-300 ${dimmed ? "opacity-20 pointer-events-none" : "opacity-100"}`}
     >
       {/* Floating inner wrapper */}
       <motion.div
-        animate={{ y: [0, -5, 0] }}
+        animate={isMobile ? {} : { y: [0, -5, 0] }}
         transition={{
           duration: 3.2 + (index % 5) * 0.35,
           repeat: Infinity,
@@ -1703,7 +1802,7 @@ function HexCell({
           <motion.div
             className="absolute inset-[-8px]"
             style={{ clipPath: clipHex, background: meta.color, filter: "blur(6px)" }}
-            animate={{ opacity: highlighted ? [0.4, 0.9, 0.4] : [0, 0.4, 0] }}
+            animate={isMobile ? {} : { opacity: highlighted ? [0.4, 0.9, 0.4] : [0, 0.4, 0] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut", delay: index * 0.28 }}
           />
         )}
@@ -1743,7 +1842,7 @@ function HexCell({
           <motion.div
             className="absolute -top-1.5 left-1/2 -translate-x-1/2 h-3 w-3 rounded-full ring-2 ring-cream-tint"
             style={{ background: meta.color }}
-            animate={{ scale: [1, 1.4, 1] }}
+            animate={isMobile ? {} : { scale: [1, 1.4, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: index * 0.3 }}
           />
         )}
@@ -1757,7 +1856,6 @@ function HexCell({
         >
           {skill.name}
         </p>
-        <p className="font-mono text-[8px] text-charcoal/35">{skill.level}%</p>
       </div>
     </motion.div>
   );
@@ -1775,7 +1873,7 @@ function Skills() {
   }, {});
 
   return (
-    <section data-section="skills" id="skills" className="relative overflow-hidden bg-cream-tint px-6 py-28">
+    <section data-section="skills" id="skills" className="relative overflow-hidden bg-cream-tint px-6 pt-28 pb-14">
       <div aria-hidden className="pointer-events-none absolute -left-40 -top-20 h-[500px] w-[500px] rounded-full opacity-25 blur-3xl"
            style={{ background: "radial-gradient(circle, #C2654A 0%, transparent 65%)" }} />
       <div aria-hidden className="pointer-events-none absolute -right-40 bottom-0 h-[400px] w-[400px] rounded-full opacity-20 blur-3xl"
@@ -1783,9 +1881,9 @@ function Skills() {
 
       <div className="relative mx-auto max-w-7xl">
         <SectionHeading
-          eyebrow="Tech Arsenal"
-          title="The Hexagonal Stack"
-          story="A practical stack shaped by production platforms, Android apps, AI prototypes, and hackathon builds."
+          eyebrow="Skills"
+          title="My Tech Stack"
+          story="A practical set of technologies shaped by building web applications, mobile platforms, and AI prototypes."
         />
 
         {/* Search bar */}
@@ -1835,7 +1933,7 @@ function Skills() {
           <div className="flex items-center gap-2">
             <motion.div className="h-3 w-3 rounded-full flex-shrink-0" style={{ background: "#C2654A" }}
               animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 2, repeat: Infinity }} />
-            <span className="font-mono text-xs text-charcoal/55 uppercase tracking-wider">Expert ≥ 90%</span>
+            <span className="font-mono text-xs text-charcoal/55 uppercase tracking-wider">Expert</span>
           </div>
         </div>
 
@@ -1897,12 +1995,9 @@ function Skills() {
                         </p>
                       </div>
                       <div className="text-right flex-shrink-0">
-                        <p className="font-mono text-4xl font-black leading-none"
+                        <p className="font-mono text-sm font-bold uppercase tracking-wider"
                            style={{ color: CATEGORY_META[hovered.category].color }}>
-                          {hovered.level}<span className="text-xl font-light text-charcoal/25">%</span>
-                        </p>
-                        <p className="font-mono text-[9px] uppercase tracking-widest text-charcoal/40 mt-1">
-                          {hovered.level >= 90 ? "Expert" : hovered.level >= 75 ? "Proficient" : "Working"}
+                          {hovered.level >= 90 ? "Expert" : hovered.level >= 75 ? "Proficient" : "Familiar"}
                         </p>
                       </div>
                     </div>
@@ -1938,25 +2033,6 @@ function Skills() {
           </AnimatePresence>
         </div>
 
-        {/* Average stats strip */}
-        <div className="mx-auto mt-10 grid max-w-xl grid-cols-4 gap-3">
-          {cats.map((c) => {
-            const cm = CATEGORY_META[c];
-            const skills = HEX_SKILLS.filter(s => s.category === c);
-            const avg = Math.round(skills.reduce((a, s) => a + s.level, 0) / skills.length);
-            return (
-              <motion.div
-                key={c}
-                whileHover={{ y: -4, boxShadow: `0 12px 32px ${cm.color}22` }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="rounded-2xl border border-charcoal/8 bg-white/70 px-3 py-4 text-center backdrop-blur-sm cursor-default dark:bg-card/70"
-              >
-                <p className="font-mono text-2xl font-black leading-none" style={{ color: cm.color }}>{avg}%</p>
-                <p className="mt-1.5 font-mono text-[9px] uppercase tracking-wider text-charcoal/45">{c}</p>
-              </motion.div>
-            );
-          })}
-        </div>
       </div>
     </section>
   );
@@ -1973,9 +2049,9 @@ function Experience() {
     <section id="experience" ref={ref} className="relative px-6 py-24">
       <div className="mx-auto max-w-5xl">
         <SectionHeading
-          eyebrow="Journey"
-          title="The Path So Far"
-          story="Industry work, internships, and campus builds that turned prototypes into usable software."
+          eyebrow="Work Experience"
+          title="Professional Journey"
+          story="Hands-on experience building platforms, working with product teams, and delivering clean frontend and backend code."
         />
 
         <div className="relative">
@@ -2031,9 +2107,9 @@ function Experience() {
   );
 }
 
-function LoadingScreen() {
+function LoadingScreen({ onComplete }: { onComplete?: () => void }) {
   const [progress, setProgress] = useState(0);
-  const [statusText, setStatusText] = useState("INITIALIZING PORTFOLIO...");
+  const [statusText, setStatusText] = useState("INITIALIZING...");
   const [isComplete, setIsComplete] = useState(false);
   const [visible, setVisible] = useState(true);
 
@@ -2044,6 +2120,7 @@ function LoadingScreen() {
           clearInterval(timer);
           setTimeout(() => {
             setIsComplete(true);
+            if (onComplete) onComplete();
             setTimeout(() => setVisible(false), 900);
           }, 500);
           return 100;
@@ -2051,11 +2128,10 @@ function LoadingScreen() {
 
         const next = prev + 1;
 
-        if (next === 12) setStatusText("LOADING ASSETS...");
-        if (next === 28) setStatusText("RESOLVING SKILLS...");
-        if (next === 48) setStatusText("COMPILING PROJECTS...");
-        if (next === 68) setStatusText("CALIBRATING INTERFACE...");
-        if (next === 88) setStatusText("SYSTEM READY. ENERGIZE.");
+        if (next === 25) setStatusText("PREPARING STACK...");
+        if (next === 50) setStatusText("COMPILING PROJECTS...");
+        if (next === 75) setStatusText("CALIBRATING INTERFACE...");
+        if (next === 95) setStatusText("SYSTEM READY...");
 
         return next;
       });
@@ -2066,26 +2142,10 @@ function LoadingScreen() {
 
   if (!visible) return null;
 
-  // Derive logs from current progress to ensure no StrictMode rendering duplications
-  const activeLogs = [
-    "SYS: boot_sequence_initialized",
-    "SYS: loading_kernel_modules..."
-  ];
-  if (progress >= 12) {
-    activeLogs.push("SYS: loading_assets_map.json", "SYS: asset_buffer_allocated");
-  }
-  if (progress >= 28) {
-    activeLogs.push("SYS: fetching_github_credentials ✓", "SYS: resolving_skills_index_registry");
-  }
-  if (progress >= 48) {
-    activeLogs.push("SYS: loading_projects_v2.db", "SYS: initializing_3d_render_layers");
-  }
-  if (progress >= 68) {
-    activeLogs.push("SYS: calibrating_timeline_matrix ✓", "SYS: applying_theme_color_tokens");
-  }
-  if (progress >= 88) {
-    activeLogs.push("SYS: unlocking_user_interface...", "SYS: system_ready_energize ✓");
-  }
+  const radius = 50;
+  const strokeWidth = 3;
+  const circ = 2 * Math.PI * radius;
+  const strokeDashoffset = circ * (1 - progress / 100);
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden pointer-events-none select-none">
@@ -2094,7 +2154,7 @@ function LoadingScreen() {
         initial={{ y: "0%" }}
         animate={{ y: isComplete ? "-100%" : "0%" }}
         transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
-        className="absolute top-0 left-0 w-full h-[50vh] bg-[#12110e] border-b border-terracotta/20 flex flex-col justify-end items-center pointer-events-auto"
+        className="absolute top-0 left-0 w-full h-[50vh] bg-[#12110e] flex flex-col justify-end items-center pointer-events-auto"
       >
         {/* Faint blueprint lines in background */}
         <div className="absolute inset-0 blueprint-grid opacity-[0.03]" />
@@ -2106,7 +2166,7 @@ function LoadingScreen() {
         initial={{ y: "0%" }}
         animate={{ y: isComplete ? "100%" : "0%" }}
         transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
-        className="absolute bottom-0 left-0 w-full h-[50vh] bg-[#12110e] border-t border-terracotta/20 pointer-events-auto"
+        className="absolute bottom-0 left-0 w-full h-[50vh] bg-[#12110e] pointer-events-auto"
       >
         {/* Faint blueprint lines in background */}
         <div className="absolute inset-0 blueprint-grid opacity-[0.03]" />
@@ -2122,53 +2182,47 @@ function LoadingScreen() {
       >
         <div className="relative flex flex-col items-center max-w-sm px-6 text-center">
           {/* Pulsing circular glow background */}
-          <div className="absolute h-48 w-48 rounded-full bg-terracotta/5 blur-3xl animate-pulse" />
+          <div className="absolute h-64 w-64 rounded-full bg-terracotta/[0.04] blur-3xl animate-pulse" />
 
-          {/* Glowing orbital telemetry ring */}
-          <div className="relative flex h-24 w-24 items-center justify-center">
-            <svg className="absolute inset-0 h-full w-full animate-[spin_8s_linear_infinite]" viewBox="0 0 100 100">
+          {/* Premium Circular Loader */}
+          <div className="relative flex h-32 w-32 items-center justify-center">
+            {/* SVG Progress Ring */}
+            <svg className="absolute inset-0 h-full w-full rotate-[-90deg]" viewBox="0 0 112 112">
               <circle
-                cx="50"
-                cy="50"
-                r="44"
-                stroke="var(--terracotta)"
-                strokeWidth="1.5"
-                strokeDasharray="6 8"
+                cx="56"
+                cy="56"
+                r={radius}
+                stroke="rgba(253, 248, 243, 0.05)"
+                strokeWidth={strokeWidth}
                 fill="none"
-                opacity="0.4"
+              />
+              <motion.circle
+                cx="56"
+                cy="56"
+                r={radius}
+                stroke="var(--terracotta)"
+                strokeWidth={strokeWidth}
+                strokeDasharray={circ}
+                animate={{ strokeDashoffset }}
+                transition={{ duration: 0.1, ease: "easeOut" }}
+                strokeLinecap="round"
+                fill="none"
               />
             </svg>
-            <div className="font-display text-2xl font-bold tracking-tighter text-[#fdf8f3] animate-pulse">
+
+            {/* Logo Text inside the circle */}
+            <div className="font-display text-2xl font-bold tracking-tighter text-[#fdf8f3]">
               BP<span className="text-terracotta">.</span>
             </div>
           </div>
 
-          <span className="mt-8 font-mono text-xs tracking-[0.25em] text-terracotta font-bold">
+          <span className="mt-8 font-mono text-[10px] tracking-[0.3em] text-terracotta font-bold">
             {String(progress).padStart(3, "0")}%
           </span>
 
-          <span className="mt-2 font-mono text-[9px] uppercase tracking-[0.4em] text-[#fdf8f3]/50 min-h-[1.5em] transition-all">
+          <span className="mt-2 font-mono text-[9px] uppercase tracking-[0.45em] text-[#fdf8f3]/45 min-h-[1.5em] transition-all">
             {statusText}
           </span>
-
-          {/* Small scrolling log output window */}
-          <div className="mt-6 w-64 border border-charcoal/20 bg-cream/5 p-3 rounded-md font-mono text-[8px] text-left text-teal/70 h-20 overflow-hidden relative shadow-inner">
-            <div className="space-y-1 absolute bottom-3 left-3 right-3 transition-all duration-300">
-              {activeLogs.slice(-4).map((log, index) => (
-                <div key={index} className="truncate opacity-75 first:opacity-40 animate-[fadeIn_0.2s_ease-out]">
-                  &gt; {log}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Progress loader bar */}
-          <div className="mt-6 h-[2px] w-64 bg-white/5 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-gradient-to-r from-terracotta to-teal transition-all duration-75 ease-out"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
         </div>
       </motion.div>
     </div>
@@ -2199,9 +2253,9 @@ function CircularProgress({ pct, color }: { pct: number; color: string }) {
           strokeWidth="2"
           fill="transparent"
           strokeDasharray={circ}
-          initial={{ strokeDashoffset: circ }}
+                    initial={{ strokeDashoffset: circ }}
           whileInView={{ strokeDashoffset }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
           transition={{ duration: 1.2, ease: "easeOut" }}
           strokeLinecap="round"
         />
@@ -2212,6 +2266,7 @@ function CircularProgress({ pct, color }: { pct: number; color: string }) {
 }
 
 function Education() {
+  const isMobile = useIsMobile();
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -2258,9 +2313,9 @@ function Education() {
     <section id="education" className="relative bg-cream-tint/30 px-6 py-24 border-t border-charcoal/5">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
-          eyebrow="Academic Foundation"
-          title="Education History"
-          story="The conceptual foundations and core systems theory behind the builds."
+          eyebrow="Education"
+          title="Academic Background"
+          story="My formal studies in Artificial Intelligence and Data Science, building core foundations in algorithms, databases, and software engineering."
         />
 
         <div className="grid gap-12 md:grid-cols-12 mt-12" ref={sectionRef}>
@@ -2302,13 +2357,14 @@ function Education() {
                 key={edu.institution}
                 initial={{ opacity: 0, x: 25 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false, margin: "-40px" }}
+                viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.45, delay: idx * 0.05 }}
                 className="group relative p-[1px] clip-tech-card bg-charcoal/10 hover:bg-gradient-to-r hover:from-terracotta hover:to-teal transition-all duration-500 shadow-warm"
               >
                 <div
                   className="relative overflow-hidden clip-tech-card bg-white p-6 md:p-8 h-full flex flex-col justify-between dark:bg-card"
                   onMouseMove={(e) => {
+                    if (isMobile) return;
                     const rect = e.currentTarget.getBoundingClientRect();
                     const mouseX = e.clientX - rect.left;
                     const mouseY = e.clientY - rect.top;
@@ -2317,12 +2373,14 @@ function Education() {
                   }}
                 >
                   {/* Hover Spotlight Glow */}
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                    style={{
-                      background: `radial-gradient(220px circle at var(--x, 50%) var(--y, 50%), ${edu.accent}14, transparent 70%)`
-                    }}
-                  />
+                  {!isMobile && (
+                    <div
+                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                      style={{
+                        background: `radial-gradient(220px circle at var(--x, 50%) var(--y, 50%), ${edu.accent}14, transparent 70%)`
+                      }}
+                    />
+                  )}
                   
                   {/* Decorative dot matrix layer */}
                   <div className="absolute inset-0 tech-dot-grid opacity-[0.02] group-hover:opacity-[0.05] transition-opacity pointer-events-none" />
@@ -2386,6 +2444,7 @@ function ProjectCard({
   index: number;
   onOpenCaseStudy: () => void;
 }) {
+  const isMobile = useIsMobile();
   const cardRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -2395,6 +2454,7 @@ function ProjectCard({
   const springY = useSpring(rotateY, { stiffness: 220, damping: 20 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
+    if (isMobile) return;
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
@@ -2417,21 +2477,23 @@ function ProjectCard({
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ rotateX: springX, rotateY: springY, transformStyle: "preserve-3d" }}
+      style={isMobile ? {} : { rotateX: springX, rotateY: springY, transformStyle: "preserve-3d" }}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: "-40px" }}
+      viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.4, delay: (index % 3) * 0.02 }}
       className="group relative p-[1px] clip-tech-card bg-charcoal/10 hover:bg-gradient-to-r hover:from-terracotta hover:to-teal transition-all duration-500 shadow-warm hover:shadow-warm-lg"
     >
       <div className="relative overflow-hidden clip-tech-card bg-white p-6 md:p-8 h-full flex flex-col justify-between dark:bg-card">
         {/* Dynamic Glowing Accent Light */}
-        <div
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-          style={{
-            background: `radial-gradient(220px circle at var(--x, 50%) var(--y, 50%), ${project.accent}20, transparent 65%)`,
-          }}
-        />
+        {!isMobile && (
+          <div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+            style={{
+              background: `radial-gradient(220px circle at var(--x, 50%) var(--y, 50%), ${project.accent}20, transparent 65%)`,
+            }}
+          />
+        )}
 
         {/* Technical dot matrix grid pattern */}
         <div className="absolute inset-0 tech-dot-grid opacity-[0.02] group-hover:opacity-[0.05] transition-opacity pointer-events-none" />
@@ -2525,7 +2587,7 @@ function ProjectCard({
 }
 
 function Projects() {
-  const [viewMode, setViewMode] = useState<"grid" | "timeline">("grid");
+  const [viewMode, setViewMode] = useState<"grid" | "timeline">("timeline");
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedCaseStudy, setSelectedCaseStudy] = useState<typeof PROJECTS[0] | null>(null);
   const [visibleCount, setVisibleCount] = useState(6);
@@ -2587,9 +2649,9 @@ function Projects() {
     <section data-section="work" id="work" className="relative bg-cream-tint px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
-          eyebrow="Selected Work"
-          title="A Portfolio of Builds"
-          story="Production deployments, mobile systems, and AI frameworks built to solve real workflows."
+          eyebrow="Projects"
+          title="Featured Projects"
+          story="A collection of web apps, full-stack tools, and AI prototypes built to solve real-world problems."
         />
 
         {/* View Toggle & Filtering Tabs */}
@@ -2680,7 +2742,7 @@ function Projects() {
               <motion.div
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
                 transition={{ duration: 1.2, ease: EASE }}
                 className="absolute left-0 right-0 top-7 hidden h-[2px] origin-left bg-gradient-to-r from-terracotta via-peach to-teal md:block"
                 style={{ opacity: 0.35 }}
@@ -3060,22 +3122,24 @@ function Projects() {
 /* ---------- Achievements ---------- */
 
 function Achievements() {
+  const isMobile = useIsMobile();
+
   return (
     <section id="achievements" className="relative px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
-          eyebrow="Wall of Wins"
-          title="Proof of Work"
-          story="Recognition from hackathons, exhibitions, incubation, and national-stage competitions."
+          eyebrow="Awards & Milestones"
+          title="Recognition & Wins"
+          story="Key milestones from hackathons, incubation programs, and academic achievements."
         />
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {ACHIEVEMENTS.map((a, i) => (
             <motion.div
               key={a.title}
-              initial={{ opacity: 0, scale: 0.6, rotate: -8, y: 30 }}
-              whileInView={{ opacity: 1, scale: 1, rotate: 0, y: 0 }}
-              viewport={{ once: false, margin: "-60px" }}
-              transition={{ type: "spring", stiffness: 160, damping: 14, delay: (i % 4) * 0.03 }}
+              initial={isMobile ? { opacity: 0, y: 12 } : { opacity: 0, scale: 0.6, rotate: -8, y: 30 }}
+              whileInView={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, scale: 1, rotate: 0, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={isMobile ? { duration: 0.4, delay: (i % 4) * 0.03 } : { type: "spring", stiffness: 160, damping: 14, delay: (i % 4) * 0.03 }}
               className="relative p-[1.5px] clip-tech-card-sm bg-charcoal/10 hover:bg-terracotta transition-all duration-300 shadow-warm"
             >
               <motion.div
@@ -3111,9 +3175,9 @@ function Leadership() {
     <section className="bg-cream-tint px-6 py-24">
       <div className="mx-auto max-w-3xl">
         <SectionHeading
-          eyebrow="Beyond Code"
-          title="Leadership & Activities"
-          story="The strongest builds came from mentoring, organizing, and leading teams through real events."
+          eyebrow="Leadership"
+          title="Extracurricular Activities"
+          story="Organizing technical events, leading project teams, and contributing to the developer community."
         />
         <div className="space-y-5">
           {LEADERSHIP.map((l, i) => (
@@ -3158,10 +3222,16 @@ function Contact() {
             <p className="mt-3 max-w-md font-display text-base italic text-charcoal/65">
               The best collaborations start with a single, low-stakes message. This is yours.
             </p>
-            <p className="mt-4 max-w-md text-charcoal/70">
-              Have a project, internship, hackathon, or AI product idea in mind? My inbox is open.
-            </p>
-            <div className="mt-8 space-y-4 text-sm">
+            <div className="mt-8 mb-6">
+              <button
+                onClick={openCalendly}
+                className="inline-flex items-center gap-2.5 rounded-full bg-teal px-6 py-3 text-sm font-medium text-cream shadow-warm transition-transform hover:-translate-y-0.5 cursor-pointer"
+              >
+                Schedule a 1-on-1 Chat
+              </button>
+            </div>
+
+            <div className="space-y-4 text-sm">
               <a href="mailto:bhushan.poojary2006@gmail.com" className="group flex items-center gap-3 text-charcoal hover:text-terracotta transition-colors">
                 <Mail className="h-4 w-4" />
                 <span className="underline-offset-4 group-hover:underline">bhushan.poojary2006@gmail.com</span>
@@ -3253,6 +3323,20 @@ function Footer() {
         <p className="mt-4 max-w-md text-sm text-charcoal/60">
           Open to internships, freelance, and the occasional weekend hackathon team-up.
         </p>
+        <div className="mt-8 flex flex-wrap gap-4">
+          <button
+            onClick={openCalendly}
+            className="inline-flex items-center gap-2 rounded-full bg-terracotta px-6 py-3 text-sm font-medium text-cream shadow-warm transition-transform hover:-translate-y-0.5 cursor-pointer"
+          >
+            Schedule a Meeting
+          </button>
+          <a
+            href="mailto:bhushan.poojary2006@gmail.com"
+            className="inline-flex items-center gap-2 rounded-full border border-charcoal/20 px-6 py-3 text-sm font-medium text-charcoal transition-colors hover:border-terracotta hover:text-terracotta cursor-pointer dark:text-cream/70 dark:border-white/20 dark:hover:bg-white/5"
+          >
+            Email Me
+          </a>
+        </div>
         <div className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-charcoal/10 pt-6 text-xs text-charcoal/60">
           <p className="inline-flex items-center gap-1.5">
             Copyright 2026 Bhushan Poojary - Built with <Coffee className="h-3 w-3 text-terracotta" /> and curiosity
@@ -3265,16 +3349,6 @@ function Footer() {
 }
 
 function BlueprintLayout({ theme }: { theme?: "light" | "dark" }) {
-  const glyphs = [
-    { text: "λ", top: "12%", left: "8%", right: undefined, delay: 0, size: "text-lg" },
-    { text: "θ", top: "25%", left: undefined, right: "12%", delay: 1.5, size: "text-xl" },
-    { text: "Σ", top: "45%", left: "14%", right: undefined, delay: 0.8, size: "text-2xl" },
-    { text: "f(x)", top: "58%", left: undefined, right: "6%", delay: 2.2, size: "text-sm" },
-    { text: "<div/>", top: "72%", left: "9%", right: undefined, delay: 1.1, size: "text-xs" },
-    { text: "[tensor]", top: "85%", left: undefined, right: "10%", delay: 3.0, size: "text-sm" },
-    { text: "d/dx", top: "92%", left: "12%", right: undefined, delay: 1.7, size: "text-sm" },
-  ];
-
   return (
     <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden select-none">
       {/* Background blueprint grid pattern */}
@@ -3288,28 +3362,6 @@ function BlueprintLayout({ theme }: { theme?: "light" | "dark" }) {
       <div className="absolute right-[15%] top-0 bottom-0 w-px bg-charcoal/5 hidden md:block" />
       <div className="absolute right-[5%] top-0 bottom-0 w-px bg-charcoal/5 hidden md:block" />
       
-      {/* Floating background mathematical/code glyphs */}
-      {glyphs.map((g, i) => (
-        <motion.div
-          key={i}
-          className={`absolute font-mono text-charcoal/10 ${g.size} hidden md:block select-none`}
-          style={{ top: g.top, left: g.left ?? undefined, right: g.right ?? undefined }}
-          animate={{
-            y: [0, -15, 0],
-            rotate: [0, i % 2 === 0 ? 10 : -10, 0],
-            opacity: [0.08, 0.18, 0.08],
-          }}
-          transition={{
-            duration: 6 + (i % 3) * 2.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: g.delay,
-          }}
-        >
-          {g.text}
-        </motion.div>
-      ))}
-
       {/* Horizontal divider coordinates */}
       <div className="absolute top-[32%] left-[5%] text-[8px] font-mono text-charcoal/20 hidden md:block tracking-widest">
         SYS · GRID · 22
@@ -3330,6 +3382,7 @@ function Portfolio() {
     }
     return "light";
   });
+  const [loadingComplete, setLoadingComplete] = useState(false);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -3345,7 +3398,7 @@ function Portfolio() {
 
   return (
     <div className="relative min-h-screen bg-cream text-charcoal overflow-x-hidden transition-colors duration-300">
-      <LoadingScreen />
+      <LoadingScreen onComplete={() => setLoadingComplete(true)} />
       <BlueprintLayout theme={theme} />
       <ScrollProgress />
       <Grain />
@@ -3353,7 +3406,7 @@ function Portfolio() {
       <OrganicCursor />
       <NowWidget />
       <ScrollToTop />
-      <FloatingMusicPlayer />
+      <FloatingMusicPlayer loadingComplete={loadingComplete} />
       <Nav theme={theme} toggleTheme={toggleTheme} />
       <main className="relative z-10">
         <Hero />
