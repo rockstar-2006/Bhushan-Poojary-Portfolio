@@ -1861,6 +1861,348 @@ function HexCell({
   );
 }
 
+
+const RESUME_SEGMENTS = [
+  {
+    keywords: ["soilsense", "soil", "nain", "nain 2.0", "funding", "5 lakh", "agriculture", "sensor"],
+    title: "Project SoilSense (NAIN 2.0 Funded)",
+    content: "Project SoilSense is an IoT-enabled smart agriculture assistant that secured Rs. 5 Lakhs in funding from the NAIN 2.0 (New Age Incubation Network) program. It is designed to assist farmers by monitoring real-time soil health, recommending crop configurations, and automating irrigation flows.",
+    citations: ["#achievements"]
+  },
+  {
+    keywords: ["education", "college", "study", "smvitm", "udupi", "cgpa", "marks", "grade", "university", "qualification"],
+    title: "Academic Background",
+    content: "Bhushan is pursuing a Bachelor of Engineering (B.E.) in Artificial Intelligence and Data Science at Shri Madhwa Vadiraja Institute of Technology and Management, Udupi (SMVITM). He is in the 2023 - 2027 batch and maintains a CGPA of 7.33.",
+    citations: ["#education"]
+  },
+  {
+    keywords: ["experience", "work", "job", "intern", "internship", "antarita", "systemtron", "journeybuddy", "roles"],
+    title: "Work Experience",
+    content: "Bhushan has two key professional roles:\n1. Trainee Fullstack Developer at Antarita Digital Cloud Pvt Ltd (Apr 2026 - Present), where he is developing Journeybuddy.ai, an AI-powered travel assistant.\n2. Frontend Developer Intern at SystemTron (Feb 2024 - Mar 2025), building responsive user interfaces and integrating REST APIs.",
+    citations: ["#experience"]
+  },
+  {
+    keywords: ["skills", "languages", "python", "typescript", "react", "next.js", "databases", "java", "firebase", "tech stack", "technologies"],
+    title: "Technical Stack",
+    content: "Specializes in modern technologies across several layers:\n- Languages: Python, Java, JavaScript, TypeScript, SQL, Dart\n- Frameworks: React, Next.js, FastAPI, Django, Express\n- Tools & Databases: Firebase, MySQL, MongoDB, Firestore, Docker, Git & GitHub",
+    citations: ["#skills"]
+  },
+  {
+    keywords: ["varnothsava", "fest", "college fest", "website", "ticket", "payment", "razorpay"],
+    title: "Varnothsava College Fest Website",
+    content: "Varnothsava is a college fest platform built by Bhushan with Next.js 16 (App Router), React 19, Three.js, Spline, Firebase, and Razorpay. It features robust transaction handling with server-side HMAC validation, role-based dashboards, and QR ticket verification, serving over 500+ active users.",
+    citations: ["#work"]
+  },
+  {
+    keywords: ["hackathon", "hackathons", "wins", "trophy", "awards", "canara", "acu"],
+    title: "Hackathon Awards & Milestones",
+    content: "Bhushan has achieved 5+ hackathon wins. Key highlights include:\n- ACU Project Exhibition (3rd Place in Feb 2025 & Feb 2026).\n- Canara College achievements (2024): 1st Place in Poster Presentation (PPC), and 2nd Place in Paper Presentation, Hackathon, and Project Expo.",
+    citations: ["#achievements"]
+  },
+  {
+    keywords: ["contact", "email", "mail", "linkedin", "phone", "hire", "socials"],
+    title: "Contact Details",
+    content: "You can reach Bhushan Poojary at:\n- Email: bhushan.poojary2006@gmail.com\n- LinkedIn: linkedin.com/in/bhushan-poojary-26a717296\n- GitHub: github.com/rockstar-2006\n- You can also schedule a meeting directly using the 'Schedule Call' button in the Nav bar or the Footer.",
+    citations: ["#contact"]
+  },
+  {
+    keywords: ["judge-it", "judgeit", "judging", "supabase", "platform"],
+    title: "JudgeIt Platform",
+    content: "JudgeIt is a production-hardened, full-stack judging platform built with Next.js 14, Supabase, and Tailwind CSS. It is designed to coordinate hackathons, startup pitches, and competitions, enabling organizers to manage judges and input scores in real time.",
+    citations: ["#work"]
+  }
+];
+
+function formatMessageText(text: string) {
+  const lines = text.split("\n");
+  let inList = false;
+  let listItems: string[] = [];
+  const renderedElements: React.ReactNode[] = [];
+
+  const flushList = (key: string | number) => {
+    if (listItems.length > 0) {
+      renderedElements.push(
+        <ul key={`ul-${key}`} className="list-disc pl-5 mb-3 space-y-1.5 text-charcoal/80 dark:text-cream/80">
+          {listItems.map((item, idx) => (
+            <li key={idx} className="text-xs leading-relaxed">{item}</li>
+          ))}
+        </ul>
+      );
+      listItems = [];
+      inList = false;
+    }
+  };
+
+  lines.forEach((line, index) => {
+    const trimmed = line.trim();
+    if (trimmed.startsWith("### ")) {
+      flushList(index);
+      renderedElements.push(
+        <h5 key={index} className="font-display text-sm font-bold text-teal dark:text-teal mb-3 mt-3">
+          {trimmed.replace("### ", "")}
+        </h5>
+      );
+    } else if (trimmed.startsWith("- ")) {
+      inList = true;
+      listItems.push(trimmed.replace("- ", ""));
+    } else if (/^\d+\.\s/.test(trimmed)) {
+      flushList(index);
+      renderedElements.push(
+        <div key={index} className="mb-2.5 pl-3 border-l-2 border-terracotta/30 text-xs leading-relaxed text-charcoal/90 dark:text-cream/90">
+          <strong className="text-terracotta font-mono mr-1">{trimmed.match(/^\d+\./)?.[0]}</strong> {trimmed.replace(/^\d+\.\s+/, "")}
+        </div>
+      );
+    } else if (trimmed === "") {
+      flushList(index);
+    } else {
+      flushList(index);
+      renderedElements.push(
+        <p key={index} className="mb-3 last:mb-0 text-xs leading-relaxed text-charcoal/90 dark:text-cream/90">
+          {trimmed}
+        </p>
+      );
+    }
+  });
+
+  flushList("end");
+  return renderedElements;
+}
+
+function AILab() {
+  const [messages, setMessages] = useState<Array<{ id: string; sender: "user" | "bot"; text: string; citations?: string[] }>>([
+    {
+      id: "initial",
+      sender: "bot",
+      text: "Hello! I am your interactive search assistant. You can ask me anything about Bhushan's skills, experience, projects, or background. Tap a quick-start question below or type your own!"
+    }
+  ]);
+  const [query, setQuery] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const [typingSteps, setTypingSteps] = useState<string[]>([]);
+  const chatEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isTyping, typingSteps]);
+
+  const handleSend = (textToSend: string) => {
+    if (!textToSend.trim()) return;
+
+    const userMsg = { id: `user-${Date.now()}`, sender: "user" as const, text: textToSend };
+    setMessages(prev => [...prev, userMsg]);
+    setQuery("");
+    setIsTyping(true);
+    setTypingSteps(["SCANNING SEMANTIC INDEX..."]);
+
+    setTimeout(() => {
+      setTypingSteps(prev => [...prev, "COMPARING SEGMENTS & RELEVANCY..."]);
+      
+      setTimeout(() => {
+        setTypingSteps(prev => [...prev, "FORMULATING DETAILED RESPONSE..."]);
+
+        setTimeout(() => {
+          const cleanQuery = textToSend.toLowerCase();
+          let bestSegment = null;
+          let maxMatches = 0;
+
+          for (const segment of RESUME_SEGMENTS) {
+            let matches = 0;
+            for (const kw of segment.keywords) {
+              if (cleanQuery.includes(kw)) {
+                matches++;
+              }
+            }
+            if (matches > maxMatches) {
+              maxMatches = matches;
+              bestSegment = segment;
+            }
+          }
+
+          let botText = "";
+          let citations: string[] = [];
+
+          if (bestSegment && maxMatches > 0) {
+            botText = `### ${bestSegment.title}\n\n${bestSegment.content}`;
+            citations = bestSegment.citations;
+          } else {
+            botText = "I couldn't find a direct match for that query in Bhushan's portfolio segment data index.\n\nHowever, you can explore his **Work Showcase** or reach out directly to him in the **Contact** section for a quick discussion!";
+            citations = ["#contact"];
+          }
+
+          setMessages(prev => [...prev, {
+            id: `bot-${Date.now()}`,
+            sender: "bot" as const,
+            text: botText,
+            citations
+          }]);
+          setIsTyping(false);
+          setTypingSteps([]);
+        }, 600);
+      }, 500);
+    }, 450);
+  };
+
+  const handleChipClick = (q: string) => {
+    if (isTyping) return;
+    handleSend(q);
+  };
+
+  const chips = [
+    "What is SoilSense?",
+    "Where does he study?",
+    "Show hackathon achievements",
+    "Show work experience"
+  ];
+
+  return (
+    <section id="ai-lab" className="relative bg-cream-tint/30 px-6 py-24 border-t border-charcoal/5 scroll-mt-24">
+      <div className="mx-auto max-w-4xl">
+        <SectionHeading
+          eyebrow="Interactive Search"
+          title="Search My Portfolio"
+          story="Explore my qualifications, technical skills, and projects in real time. Ask a custom question or select one of the quick prompts below to search my credentials index."
+        />
+
+        <div className="group/console relative mt-12 p-[1px] rounded-3xl bg-charcoal/10 dark:bg-white/10 hover:bg-gradient-to-r hover:from-terracotta/30 hover:to-teal/30 transition-all duration-500 shadow-warm-lg hover:shadow-warm-xl">
+          <div className="relative overflow-hidden rounded-3xl bg-white/90 dark:bg-[#151311]/90 backdrop-blur-md p-4 sm:p-6 md:p-8 flex flex-col h-[500px] sm:h-[550px] md:h-[600px] transition-colors duration-300">
+            {/* Ambient Background Glows inside Console */}
+            <div className="absolute top-0 right-0 -mt-24 -mr-24 w-80 h-80 rounded-full bg-teal/5 blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 -mb-24 -ml-24 w-80 h-80 rounded-full bg-terracotta/5 blur-3xl pointer-events-none" />
+
+            {/* Chat header */}
+            <div className="relative z-10 flex items-center justify-between border-b border-charcoal/10 dark:border-white/10 pb-4">
+              <div className="flex items-center">
+                {/* macOS Window Controls */}
+                <div className="flex items-center gap-1.5 mr-4">
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f56] opacity-80" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e] opacity-80" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#27c93f] opacity-80" />
+                </div>
+                <div>
+                  <h4 className="font-sans text-xs font-bold text-charcoal/80 dark:text-cream/80">Search Console</h4>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-teal" />
+                </span>
+                <span className="font-mono text-[9px] text-charcoal/50 dark:text-cream/50 uppercase tracking-wider">
+                  Active
+                </span>
+              </div>
+            </div>
+
+            {/* Messages list */}
+            <div className="relative z-10 flex-1 overflow-y-auto py-6 space-y-6 pr-1 scrollbar-thin scrollbar-thumb-charcoal/10 dark:scrollbar-thumb-white/10">
+              {messages.map((msg) => (
+                <div key={msg.id} className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
+                  <div className={`max-w-[90%] sm:max-w-[80%] rounded-2xl p-4 text-xs leading-relaxed ${
+                    msg.sender === "user" 
+                      ? "bg-gradient-to-br from-terracotta to-terracotta/95 text-cream rounded-tr-none font-sans shadow-sm" 
+                      : "bg-cream-tint/80 dark:bg-white/5 border border-charcoal/5 dark:border-white/5 text-charcoal dark:text-cream rounded-tl-none font-sans shadow-sm"
+                  }`}>
+                    {msg.sender === "bot" ? (
+                      <div>
+                        {formatMessageText(msg.text)}
+                        
+                        {msg.citations && msg.citations.length > 0 && (
+                          <div className="mt-4 border-t border-charcoal/5 dark:border-white/5 pt-3 flex flex-wrap items-center gap-2">
+                            <span className="font-mono text-[9px] text-charcoal/40 dark:text-white/40">CITATIONS:</span>
+                            {msg.citations.map((cite) => (
+                              <a
+                                key={cite}
+                                href={cite}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  document.querySelector(cite)?.scrollIntoView({ behavior: "smooth" });
+                                }}
+                                className="inline-flex items-center gap-1 rounded bg-teal/15 px-2 py-0.5 font-mono text-[8px] uppercase tracking-wider text-teal hover:bg-teal/25 transition-colors"
+                              >
+                                {cite.replace("#", "[") + "]"}
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <span className="whitespace-pre-line">{msg.text}</span>
+                    )}
+                  </div>
+                </div>
+              ))}
+
+              {isTyping && (
+                <div className="flex justify-start">
+                  <div className="max-w-[90%] sm:max-w-[80%] rounded-2xl rounded-tl-none bg-cream-tint/80 dark:bg-white/5 border border-charcoal/5 dark:border-white/5 p-4 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="flex h-1.5 w-1.5 animate-pulse rounded-full bg-teal" />
+                      <span className="flex h-1.5 w-1.5 animate-pulse rounded-full bg-teal" style={{ animationDelay: "0.2s" }} />
+                      <span className="flex h-1.5 w-1.5 animate-pulse rounded-full bg-teal" style={{ animationDelay: "0.4s" }} />
+                    </div>
+                    <div className="space-y-1">
+                      {typingSteps.map((step, sIdx) => (
+                        <p key={sIdx} className="font-mono text-[9px] text-teal/80 dark:text-teal/70 animate-pulse">{">"} {step}</p>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div ref={chatEndRef} />
+            </div>
+
+            {/* Quick chips & Input form */}
+            <div className="relative z-10 border-t border-charcoal/10 dark:border-white/10 pt-4 space-y-4">
+              {/* Quick chips */}
+              <div 
+                className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap no-scrollbar"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
+                {chips.map((chip) => (
+                  <button
+                    key={chip}
+                    disabled={isTyping}
+                    onClick={() => handleChipClick(chip)}
+                    className="flex-shrink-0 rounded-full border border-charcoal/10 dark:border-white/10 bg-white/50 dark:bg-white/5 px-3.5 py-1.5 font-sans text-xs text-charcoal/70 dark:text-cream/70 hover:border-teal hover:text-teal dark:hover:border-teal dark:hover:text-teal hover:bg-teal/5 transition-all shadow-sm disabled:opacity-50 disabled:pointer-events-none cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    {chip}
+                  </button>
+                ))}
+              </div>
+
+              {/* Input field */}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSend(query);
+                }}
+                className="relative flex items-center w-full bg-cream-tint/40 dark:bg-charcoal/30 rounded-2xl border border-charcoal/15 dark:border-white/10 px-4 py-2.5 focus-within:border-teal/50 focus-within:ring-4 focus-within:ring-teal/5 transition-all duration-300"
+              >
+                <input
+                  type="text"
+                  disabled={isTyping}
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Ask about my skills, projects, experience, or SoilSense..."
+                  className="flex-1 bg-transparent font-sans text-xs text-charcoal dark:text-cream placeholder-charcoal/40 dark:placeholder-white/30 outline-none disabled:opacity-50"
+                />
+                <button
+                  type="submit"
+                  disabled={isTyping || !query.trim()}
+                  className="ml-2 rounded-xl bg-teal p-2 text-white hover:bg-teal/90 hover:scale-105 active:scale-95 transition-all disabled:opacity-30 disabled:pointer-events-none cursor-pointer flex items-center justify-center shadow-sm"
+                  aria-label="Send query"
+                >
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+
+}
 function Skills() {
   const [hovered, setHovered] = useState<HexSkill | null>(null);
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
@@ -2032,7 +2374,6 @@ function Skills() {
             )}
           </AnimatePresence>
         </div>
-
       </div>
     </section>
   );
@@ -3428,6 +3769,7 @@ function Portfolio() {
         <Projects />
         <Achievements />
         <Leadership />
+        <AILab />
         <Contact />
       </main>
 
