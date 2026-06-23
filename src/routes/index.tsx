@@ -530,12 +530,14 @@ const LEADERSHIP = [
 
 function LaptopMockup({ videoUrl, fallbackImg, projectId }: { videoUrl?: string; fallbackImg?: string; projectId?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
   const [showControls, setShowControls] = useState(false);
   const [flashIcon, setFlashIcon] = useState<"play" | "pause" | null>(null);
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const userPausedRef = useRef(false);
 
   const triggerControls = () => {
     setShowControls(true);
@@ -550,6 +552,7 @@ function LaptopMockup({ videoUrl, fallbackImg, projectId }: { videoUrl?: string;
   const handlePlayPause = () => {
     if (!videoRef.current) return;
     if (videoRef.current.paused || !isPlaying) {
+      userPausedRef.current = false;
       videoRef.current.play().then(() => {
         setIsPlaying(true);
         setFlashIcon("play");
@@ -558,6 +561,7 @@ function LaptopMockup({ videoUrl, fallbackImg, projectId }: { videoUrl?: string;
         console.log("Play failed:", err);
       });
     } else {
+      userPausedRef.current = true;
       videoRef.current.pause();
       setIsPlaying(false);
       setFlashIcon("pause");
@@ -573,6 +577,7 @@ function LaptopMockup({ videoUrl, fallbackImg, projectId }: { videoUrl?: string;
 
   const handleStop = () => {
     if (!videoRef.current) return;
+    userPausedRef.current = true;
     videoRef.current.pause();
     videoRef.current.currentTime = 0;
     setIsPlaying(false);
@@ -596,14 +601,36 @@ function LaptopMockup({ videoUrl, fallbackImg, projectId }: { videoUrl?: string;
     triggerControls();
   };
 
+  // IntersectionObserver: play only when visible, pause when off-screen
   useEffect(() => {
-    setIsPlaying(true);
+    if (!videoUrl) return;
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!videoRef.current) return;
+        if (entry.isIntersecting) {
+          if (!userPausedRef.current) {
+            videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+          }
+        } else {
+          videoRef.current.pause();
+          setIsPlaying(false);
+        }
+      },
+      { threshold: 0.25 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [videoUrl]);
+
+  useEffect(() => {
+    setIsPlaying(false);
     setProgress(0);
+    userPausedRef.current = false;
     if (videoUrl && videoRef.current) {
       videoRef.current.load();
-      videoRef.current.play().catch((err) => {
-        console.log("Auto-play failed or was interrupted:", err);
-      });
     }
   }, [videoUrl]);
 
@@ -635,7 +662,7 @@ function LaptopMockup({ videoUrl, fallbackImg, projectId }: { videoUrl?: string;
   else if (projectId === "hpl") glowColor = "rgba(59, 130, 246, 0.12)"; // Blue
 
   return (
-    <div className="relative w-full max-w-[680px] mx-auto select-none">
+    <div ref={containerRef} className="relative w-full max-w-[680px] mx-auto select-none">
       {/* Ambient Accent Glow */}
       <div 
         className="absolute -inset-10 rounded-full blur-[80px] pointer-events-none opacity-60 dark:opacity-40 transition-all duration-700"
@@ -675,7 +702,7 @@ function LaptopMockup({ videoUrl, fallbackImg, projectId }: { videoUrl?: string;
                 <video
                   ref={videoRef}
                   src={videoUrl}
-                  autoPlay
+                  preload="none"
                   loop
                   muted
                   playsInline
@@ -768,12 +795,14 @@ function LaptopMockup({ videoUrl, fallbackImg, projectId }: { videoUrl?: string;
 
 function MobileMockup({ videoUrl, fallbackImg, projectId }: { videoUrl?: string; fallbackImg?: string; projectId?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
   const [showControls, setShowControls] = useState(false);
   const [flashIcon, setFlashIcon] = useState<"play" | "pause" | null>(null);
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const userPausedRef = useRef(false);
 
   const triggerControls = () => {
     setShowControls(true);
@@ -788,6 +817,7 @@ function MobileMockup({ videoUrl, fallbackImg, projectId }: { videoUrl?: string;
   const handlePlayPause = () => {
     if (!videoRef.current) return;
     if (videoRef.current.paused || !isPlaying) {
+      userPausedRef.current = false;
       videoRef.current.play().then(() => {
         setIsPlaying(true);
         setFlashIcon("play");
@@ -796,6 +826,7 @@ function MobileMockup({ videoUrl, fallbackImg, projectId }: { videoUrl?: string;
         console.log("Play failed:", err);
       });
     } else {
+      userPausedRef.current = true;
       videoRef.current.pause();
       setIsPlaying(false);
       setFlashIcon("pause");
@@ -811,6 +842,7 @@ function MobileMockup({ videoUrl, fallbackImg, projectId }: { videoUrl?: string;
 
   const handleStop = () => {
     if (!videoRef.current) return;
+    userPausedRef.current = true;
     videoRef.current.pause();
     videoRef.current.currentTime = 0;
     setIsPlaying(false);
@@ -834,14 +866,36 @@ function MobileMockup({ videoUrl, fallbackImg, projectId }: { videoUrl?: string;
     triggerControls();
   };
 
+  // IntersectionObserver: play only when visible, pause when off-screen
   useEffect(() => {
-    setIsPlaying(true);
+    if (!videoUrl) return;
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!videoRef.current) return;
+        if (entry.isIntersecting) {
+          if (!userPausedRef.current) {
+            videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+          }
+        } else {
+          videoRef.current.pause();
+          setIsPlaying(false);
+        }
+      },
+      { threshold: 0.25 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [videoUrl]);
+
+  useEffect(() => {
+    setIsPlaying(false);
     setProgress(0);
+    userPausedRef.current = false;
     if (videoUrl && videoRef.current) {
       videoRef.current.load();
-      videoRef.current.play().catch((err) => {
-        console.log("Auto-play failed or was interrupted:", err);
-      });
     }
   }, [videoUrl]);
 
@@ -862,7 +916,7 @@ function MobileMockup({ videoUrl, fallbackImg, projectId }: { videoUrl?: string;
   else if (projectId === "hpl") glowColor = "rgba(59, 130, 246, 0.12)"; // Blue
 
   return (
-    <div className="relative w-[210px] sm:w-[230px] mx-auto select-none">
+    <div ref={containerRef} className="relative w-[210px] sm:w-[230px] mx-auto select-none">
       {/* Ambient Accent Glow */}
       <div 
         className="absolute -inset-12 rounded-full blur-[60px] pointer-events-none opacity-70 dark:opacity-50 transition-all duration-700"
@@ -900,7 +954,7 @@ function MobileMockup({ videoUrl, fallbackImg, projectId }: { videoUrl?: string;
                 <video
                   ref={videoRef}
                   src={videoUrl}
-                  autoPlay
+                  preload="none"
                   loop
                   muted
                   playsInline
